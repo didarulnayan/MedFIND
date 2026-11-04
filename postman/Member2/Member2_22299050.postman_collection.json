@@ -1,0 +1,1254 @@
+{
+  "info": {
+    "name": "MedFind BD - Member 2 - Abdullah Al Zahur Rafi (22299050)",
+    "description": "CSE471 Group 02, Section 03. Member 2: Abdullah Al Zahur Rafi (22299050).\nServer: npm run start:member2 -> http://127.0.0.1:9050\nFeature 01: Medicine Details & Reservation Request\nFeature 02: Reservation Status Tracking\n\nRun \"npm run seed\" first. Requests are ordered: run the folder top to bottom (or use the Collection Runner).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Preferred pickup date = tomorrow in Asia/Dhaka (UTC+6), used by reservation requests",
+          "const dhaka = new Date(Date.now() + 6 * 3600 * 1000 + 24 * 3600 * 1000);",
+          "pm.collectionVariables.set('pickupDate', dhaka.toISOString().slice(0, 10));"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:9050"
+    },
+    {
+      "key": "pickupDate",
+      "value": ""
+    },
+    {
+      "key": "napaId",
+      "value": "3bec8373567f1e169fbef9cb"
+    },
+    {
+      "key": "zimaxId",
+      "value": "1033d6bfeec8147b31105b9f"
+    },
+    {
+      "key": "secloId",
+      "value": "f0d40c262d508a24feeb4563"
+    },
+    {
+      "key": "ostocalId",
+      "value": "7dbbf2400fd851ca9742fcbc"
+    },
+    {
+      "key": "lazzId",
+      "value": "0367672641e1463cf4ee98cd"
+    },
+    {
+      "key": "tamannaId",
+      "value": "762db1f8dd93e1a8c9999f02"
+    },
+    {
+      "key": "careId",
+      "value": "690efc4e8f369b935e83cb6b"
+    },
+    {
+      "key": "greenId",
+      "value": "e9a8e974b7602290887787a9"
+    },
+    {
+      "key": "shaplaId",
+      "value": "24157e5f946b95812b4b9b3d"
+    },
+    {
+      "key": "dhanmondiId",
+      "value": "f6289c77bd8917169b0eece6"
+    },
+    {
+      "key": "mirpur10AreaId",
+      "value": "6eb7024f30ececf8f51c3e21"
+    },
+    {
+      "key": "lazzNapaItemId",
+      "value": "209fc9c7d78228e98d3e949e"
+    },
+    {
+      "key": "patientToken",
+      "value": ""
+    },
+    {
+      "key": "patient2Token",
+      "value": ""
+    },
+    {
+      "key": "ownerToken",
+      "value": ""
+    },
+    {
+      "key": "adminToken",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "00 Setup - Login (common)",
+      "item": [
+        {
+          "name": "Login -> patientToken (ayesha@medfind.test)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Logged in', () => pm.response.to.have.status(200));",
+                  "pm.collectionVariables.set('patientToken', pm.response.json().data.token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"ayesha@medfind.test\",\n  \"password\": \"Password@123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Common login (shared by all members, not an assessed feature). Stores the JWT in a collection variable. Development-only demo account."
+          }
+        },
+        {
+          "name": "Login -> patient2Token (imran@medfind.test)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Logged in', () => pm.response.to.have.status(200));",
+                  "pm.collectionVariables.set('patient2Token', pm.response.json().data.token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"imran@medfind.test\",\n  \"password\": \"Password@123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Common login (shared by all members, not an assessed feature). Stores the JWT in a collection variable. Development-only demo account."
+          }
+        },
+        {
+          "name": "Login -> ownerToken (rahim.owner@medfind.test)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Logged in', () => pm.response.to.have.status(200));",
+                  "pm.collectionVariables.set('ownerToken', pm.response.json().data.token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"rahim.owner@medfind.test\",\n  \"password\": \"Password@123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Common login (shared by all members, not an assessed feature). Stores the JWT in a collection variable. Development-only demo account."
+          }
+        },
+        {
+          "name": "Login -> adminToken (admin@medfind.test)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Logged in', () => pm.response.to.have.status(200));",
+                  "pm.collectionVariables.set('adminToken', pm.response.json().data.token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@medfind.test\",\n  \"password\": \"Admin@12345\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Common login (shared by all members, not an assessed feature). Stores the JWT in a collection variable. Development-only demo account."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Feature 01 - Medicine Details & Reservation Request",
+      "item": [
+        {
+          "name": "M2-F1-01 Medicine details with pharmacy availability",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response has success flag', () => pm.expect(pm.response.json()).to.have.property('success', true));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/medicines/3bec8373567f1e169fbef9cb?sort=price",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "medicines",
+                "3bec8373567f1e169fbef9cb"
+              ],
+              "query": [
+                {
+                  "key": "sort",
+                  "value": "price"
+                }
+              ]
+            },
+            "description": "Medicine details page: medicine information, prescription requirement, price range and every verified pharmacy that lists it with price, reported stock, rating and last-updated time.\n\nExpected status: 200\nAuth: none (public)"
+          }
+        },
+        {
+          "name": "M2-F1-02 Pharmacy availability & reservation summary",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response has success flag', () => pm.expect(pm.response.json()).to.have.property('success', true));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/medicines/3bec8373567f1e169fbef9cb/pharmacies/0367672641e1463cf4ee98cd/availability?quantity=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "medicines",
+                "3bec8373567f1e169fbef9cb",
+                "pharmacies",
+                "0367672641e1463cf4ee98cd",
+                "availability"
+              ],
+              "query": [
+                {
+                  "key": "quantity",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Reservation form summary for one pharmacy: price per unit, reported stock, units that can still be reserved, estimated total, prescription requirement and pickup rules.\n\nExpected status: 200\nAuth: none (public)"
+          }
+        },
+        {
+          "name": "M2-F1-N4 Unverified pharmacy (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 404', () => pm.response.to.have.status(404));",
+                  "pm.test('Response has success flag', () => pm.expect(pm.response.json()).to.have.property('success', false));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/medicines/3bec8373567f1e169fbef9cb/pharmacies/24157e5f946b95812b4b9b3d/availability",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "medicines",
+                "3bec8373567f1e169fbef9cb",
+                "pharmacies",
+                "24157e5f946b95812b4b9b3d",
+                "availability"
+              ]
+            },
+            "description": "Pharmacies that are not verified cannot be reserved from.\n\nExpected status: 404\nAuth: none (public)"
+          }
+        },
+        {
+          "name": "M2-F1-03 Send reservation request",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 201', () => pm.response.to.have.status(201));",
+                  "pm.test('Response has success flag', () => pm.expect(pm.response.json()).to.have.property('success', true));",
+                  "const json = pm.response.json();",
+                  "if (pm.response.code < 300) pm.collectionVariables.set('reservationId', json.data.reservation.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{patient2Token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "medicineId",
+                  "value": "3bec8373567f1e169fbef9cb",
+                  "type": "text"
+                },
+                {
+                  "key": "pharmacyId",
+                  "value": "0367672641e1463cf4ee98cd",
+                  "type": "text"
+                },
+                {
+                  "key": "quantity",
+                  "value": "10",
+                  "type": "text"
+                },
+                {
+                  "key": "pickupDate",
+                  "value": "{{pickupDate}}",
+                  "type": "text"
+                },
+                {
+                  "key": "pickupTime",
+                  "value": "18:00",
+                  "type": "text"
+                },
+                {
+                  "key": "note",
+                  "value": "I need the 500 mg strip only",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations"
+              ]
+            },
+            "description": "Patient reserves a medicine: quantity, preferred pickup date and time, optional note and optional prescription image (required for prescription-only medicines). The request is created as \"Pending\" and the owner is notified.\n\nExpected status: 201\nAuth: Bearer token of patient2Token"
+          }
+        },
+        {
+          "name": "M2-F1-04 Upload prescription image",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response has success flag', () => pm.expect(pm.response.json()).to.have.property('success', true));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{patient2Token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "prescription",
+                  "type": "file",
+                  "src": "assets/sample-prescription.png"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/{{reservationId}}/prescription",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "{{reservationId}}",
+                "prescription"
+              ]
+            },
+            "description": "Attach or replace the prescription image while the reservation is still Pending (PNG/JPG up to 5 MB).\n\nExpected status: 200\nAuth: Bearer token of patient2Token"
+          }
+        },
+        {
+          "name": "M2-F1-N1 Prescription-only medicine without prescription (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Response has success flag', () => pm.expect(pm.response.json()).to.have.property('success', false));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{patient2Token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"medicineId\": \"1033d6bfeec8147b31105b9f\",\n  \"pharmacyId\": \"0367672641e1463cf4ee98cd\",\n  \"quantity\": 3,\n  \"pickupDate\": \"{{pickupDate}}\",\n  \"pickupTime\": \"18:00\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations"
+              ]
+            },
+            "description": "Zimax 500 (azithromycin) requires a prescription image.\n\nExpected status: 400\nAuth: Bearer token of patient2Token"
+          }
+        },
+        {
+          "name": "M2-F1-N2 Quantity exceeds available stock (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Response has success flag', () => pm.expect(pm.response.json()).to.have.property('success', false));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{patient2Token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"medicineId\": \"3bec8373567f1e169fbef9cb\",\n  \"pharmacyId\": \"762db1f8dd93e1a8c9999f02\",\n  \"quantity\": 200,\n  \"pickupDate\": \"{{pickupDate}}\",\n  \"pickupTime\": \"18:00\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations"
+              ]
+            },
+            "description": "Reservations cannot exceed the stock that can still be promised.\n\nExpected status: 409\nAuth: Bearer token of patient2Token"
+          }
+        },
+        {
+          "name": "M2-F1-N3 Pickup time outside opening hours (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Response has success flag', () => pm.expect(pm.response.json()).to.have.property('success', false));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{patientToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"medicineId\": \"f0d40c262d508a24feeb4563\",\n  \"pharmacyId\": \"0367672641e1463cf4ee98cd\",\n  \"quantity\": 2,\n  \"pickupDate\": \"{{pickupDate}}\",\n  \"pickupTime\": \"23:30\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations"
+              ]
+            },
+            "description": "Lazz Pharma closes at 10:00 PM.\n\nExpected status: 400\nAuth: Bearer token of patientToken"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Feature 02 - Reservation Status Tracking",
+      "item": [
+        {
+          "name": "M2-F2-01 My reservations",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response has success flag', () => pm.expect(pm.response.json()).to.have.property('success', true));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{patient2Token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/my?tab=all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "my"
+              ],
+              "query": [
+                {
+                  "key": "tab",
+                  "value": "all"
+                }
+              ]
+            },
+            "description": "Patient's reservations with tab counts (All / Active / Completed / Cancelled), status and pickup time.\n\nExpected status: 200\nAuth: Bearer token of patient2Token"
+          }
+        },
+        {
+          "name": "M2-F2-02 Owner reservation inbox",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response has success flag', () => pm.expect(pm.response.json()).to.have.property('success', true));",
+                  "{ const item = pm.response.json().data.reservations.find((x) => x.medicine.includes('Seclo'));",
+                  "  if (item) pm.collectionVariables.set('rejectReservationId', item.id); }",
+                  "{ const item = pm.response.json().data.reservations.find((x) => x.medicine.includes('Napa 500 mg x 10') && x.patient.name === 'Ayesha Siddika');",
+                  "  if (item) pm.collectionVariables.set('cancelReservationId', item.id); }"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ownerToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/owner/reservations?status=Pending",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "owner",
+                "reservations"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "Pending"
+                }
+              ]
+            },
+            "description": "Pharmacy owner inbox with counts (Pending, Confirmed, Ready for pickup, Collected today) and requests including patient name and phone.\n\nExpected status: 200\nAuth: Bearer token of ownerToken"
+          }
+        },
+        {
+          "name": "M2-F2-03 Confirm availability (Pending -> Confirmed)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response has success flag', () => pm.expect(pm.response.json()).to.have.property('success', true));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ownerToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Confirmed\",\n  \"note\": \"Availability confirmed\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/owner/reservations/{{reservationId}}/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "owner",
+                "reservations",
+                "{{reservationId}}",
+                "status"
+              ]
+            },
+            "description": "Owner moves the reservation one step forward. Stock that can be promised is re-checked before confirming.\n\nExpected status: 200\nAuth: Bearer token of ownerToken"
+          }
+        },
+        {
+          "name": "M2-F2-04 Mark ready for pickup (Confirmed -> Ready for pickup)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response has success flag', () => pm.expect(pm.response.json()).to.have.property('success', true));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ownerToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"ReadyForPickup\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/owner/reservations/{{reservationId}}/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "owner",
+                "reservations",
+                "{{reservationId}}",
+                "status"
+              ]
+            },
+            "description": "Second step of the workflow.\n\nExpected status: 200\nAuth: Bearer token of ownerToken"
+          }
+        },
+        {
+          "name": "M2-F2-05 Mark collected (stock reduces automatically)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response has success flag', () => pm.expect(pm.response.json()).to.have.property('success', true));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ownerToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Collected\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/owner/reservations/{{reservationId}}/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "owner",
+                "reservations",
+                "{{reservationId}}",
+                "status"
+              ]
+            },
+            "description": "Final step. In one transaction the status becomes Collected and stock is reduced using the earliest-expiring batch first.\n\nExpected status: 200\nAuth: Bearer token of ownerToken"
+          }
+        },
+        {
+          "name": "M2-F2-N1 Invalid status transition (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Response has success flag', () => pm.expect(pm.response.json()).to.have.property('success', false));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ownerToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Confirmed\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/owner/reservations/{{reservationId}}/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "owner",
+                "reservations",
+                "{{reservationId}}",
+                "status"
+              ]
+            },
+            "description": "A Collected reservation cannot move back to Confirmed.\n\nExpected status: 409\nAuth: Bearer token of ownerToken"
+          }
+        },
+        {
+          "name": "M2-F2-N2 Cancel after Ready for pickup / collected (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Response has success flag', () => pm.expect(pm.response.json()).to.have.property('success', false));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{patient2Token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/{{reservationId}}/cancel",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "{{reservationId}}",
+                "cancel"
+              ]
+            },
+            "description": "Cancellation is only allowed before Ready for pickup.\n\nExpected status: 409\nAuth: Bearer token of patient2Token"
+          }
+        },
+        {
+          "name": "M2-F2-06 Reservation status timeline",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response has success flag', () => pm.expect(pm.response.json()).to.have.property('success', true));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{patient2Token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/{{reservationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "{{reservationId}}"
+              ]
+            },
+            "description": "Reservation detail with the 4-step timeline (Pending, Confirmed, Ready for pickup, Collected), full status history, pickup deadline and whether it can be cancelled.\n\nExpected status: 200\nAuth: Bearer token of patient2Token"
+          }
+        },
+        {
+          "name": "M2-F2-N3 Another patient cannot view the reservation (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Response has success flag', () => pm.expect(pm.response.json()).to.have.property('success', false));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{patientToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/{{reservationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "{{reservationId}}"
+              ]
+            },
+            "description": "Reservation details are visible only to the patient, the pharmacy owner and admins.\n\nExpected status: 403\nAuth: Bearer token of patientToken"
+          }
+        },
+        {
+          "name": "M2-F2-07 Reject reservation with reason",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response has success flag', () => pm.expect(pm.response.json()).to.have.property('success', true));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ownerToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Out of stock\",\n  \"message\": \"Sorry, this batch is sold out. New stock arrives on Thursday.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/owner/reservations/{{rejectReservationId}}/reject",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "owner",
+                "reservations",
+                "{{rejectReservationId}}",
+                "reject"
+              ]
+            },
+            "description": "Owner rejects a Pending/Confirmed request with a reason and optional message; the patient is notified by email and in the app.\n\nExpected status: 200\nAuth: Bearer token of ownerToken"
+          }
+        },
+        {
+          "name": "M2-F2-08 Patient cancels reservation",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response has success flag', () => pm.expect(pm.response.json()).to.have.property('success', true));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{patientToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Bought it elsewhere\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/{{cancelReservationId}}/cancel",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "{{cancelReservationId}}",
+                "cancel"
+              ]
+            },
+            "description": "Patients can cancel any time before the reservation is Ready for pickup.\n\nExpected status: 200\nAuth: Bearer token of patientToken"
+          }
+        },
+        {
+          "name": "M2-F2-09 Expire overdue reservations (scheduled job trigger)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response has success flag', () => pm.expect(pm.response.json()).to.have.property('success', true));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/reservations/expire-overdue",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "reservations",
+                "expire-overdue"
+              ]
+            },
+            "description": "Runs the same logic as the node-cron job (every 5 minutes): active reservations whose pickup deadline has passed become Expired and patients are notified.\n\nExpected status: 200\nAuth: Bearer token of adminToken"
+          }
+        },
+        {
+          "name": "M2-F2-N4 Non-admin cannot run the expiry job (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Response has success flag', () => pm.expect(pm.response.json()).to.have.property('success', false));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ownerToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/reservations/expire-overdue",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "reservations",
+                "expire-overdue"
+              ]
+            },
+            "description": "Admin-only action.\n\nExpected status: 403\nAuth: Bearer token of ownerToken"
+          }
+        }
+      ]
+    }
+  ]
+}

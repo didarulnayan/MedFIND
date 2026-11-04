@@ -1,0 +1,170 @@
+{
+  "M2-F1-01": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member2/M2-F1-01.png",
+    "url": "/api/medicines/3bec8373567f1e169fbef9cb",
+    "at": "2026-11-04T19:59:51.538Z"
+  },
+  "M2-F1-03": {
+    "expected": 201,
+    "serverLogged": 201,
+    "ok": true,
+    "screenshot": "screenshots/Member2/M2-F1-03.png",
+    "url": "/api/reservations",
+    "at": "2026-11-04T20:00:18.963Z"
+  },
+  "M2-F1-04": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member2/M2-F1-04.png",
+    "url": "/api/reservations/6aeb8ed998cb47d48631c3ee/prescription",
+    "at": "2026-11-04T20:00:28.212Z"
+  },
+  "M2-F1-02": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member2/M2-F1-02.png",
+    "url": "/api/medicines/3bec8373567f1e169fbef9cb/pharmacies/0367672641e1463cf4ee98cd/availability",
+    "at": "2026-11-04T20:00:00.635Z"
+  },
+  "M2-F1-N4": {
+    "expected": 404,
+    "serverLogged": 404,
+    "ok": true,
+    "screenshot": "screenshots/Member2/M2-F1-N4.png",
+    "url": "/api/medicines/3bec8373567f1e169fbef9cb/pharmacies/24157e5f946b95812b4b9b3d/availability",
+    "at": "2026-11-04T20:00:09.755Z"
+  },
+  "M2-F1-N1": {
+    "expected": 400,
+    "serverLogged": 400,
+    "ok": true,
+    "screenshot": "screenshots/Member2/M2-F1-N1.png",
+    "url": "/api/reservations",
+    "at": "2026-11-04T20:00:44.477Z"
+  },
+  "M2-F1-N2": {
+    "expected": 409,
+    "serverLogged": 409,
+    "ok": true,
+    "screenshot": "screenshots/Member2/M2-F1-N2.png",
+    "url": "/api/reservations",
+    "at": "2026-11-04T20:00:53.639Z"
+  },
+  "M2-F1-N3": {
+    "expected": 400,
+    "serverLogged": 400,
+    "ok": true,
+    "screenshot": "screenshots/Member2/M2-F1-N3.png",
+    "url": "/api/reservations",
+    "at": "2026-11-04T20:01:02.820Z"
+  },
+  "M2-F2-01": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member2/M2-F2-01.png",
+    "url": "/api/reservations/my",
+    "at": "2026-11-04T20:01:11.988Z"
+  },
+  "M2-F2-02": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member2/M2-F2-02.png",
+    "url": "/api/owner/reservations",
+    "at": "2026-11-04T20:01:21.198Z"
+  },
+  "M2-F2-03": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member2/M2-F2-03.png",
+    "url": "/api/owner/reservations/6aeb8ed998cb47d48631c3ee/status",
+    "at": "2026-11-04T20:01:30.329Z"
+  },
+  "M2-F2-04": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member2/M2-F2-04.png",
+    "url": "/api/owner/reservations/6aeb8ed998cb47d48631c3ee/status",
+    "at": "2026-11-04T20:01:39.444Z"
+  },
+  "M2-F2-05": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member2/M2-F2-05.png",
+    "url": "/api/owner/reservations/6aeb8ed998cb47d48631c3ee/status",
+    "at": "2026-11-04T20:01:48.598Z"
+  },
+  "M2-F2-N1": {
+    "expected": 409,
+    "serverLogged": 409,
+    "ok": true,
+    "screenshot": "screenshots/Member2/M2-F2-N1.png",
+    "url": "/api/owner/reservations/6aeb8ed998cb47d48631c3ee/status",
+    "at": "2026-11-04T20:01:57.748Z"
+  },
+  "M2-F2-N2": {
+    "expected": 409,
+    "serverLogged": 409,
+    "ok": true,
+    "screenshot": "screenshots/Member2/M2-F2-N2.png",
+    "url": "/api/reservations/6aeb8ed998cb47d48631c3ee/cancel",
+    "at": "2026-11-04T20:02:06.867Z"
+  },
+  "M2-F2-06": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member2/M2-F2-06.png",
+    "url": "/api/reservations/6aeb8ed998cb47d48631c3ee",
+    "at": "2026-11-04T20:02:15.991Z"
+  },
+  "M2-F2-N3": {
+    "expected": 403,
+    "serverLogged": 403,
+    "ok": true,
+    "screenshot": "screenshots/Member2/M2-F2-N3.png",
+    "url": "/api/reservations/6aeb8ed998cb47d48631c3ee",
+    "at": "2026-11-04T20:02:25.058Z"
+  },
+  "M2-F2-07": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member2/M2-F2-07.png",
+    "url": "/api/owner/reservations/6aeb8eb66aee06fd47c28e01/reject",
+    "at": "2026-11-04T20:02:34.220Z"
+  },
+  "M2-F2-08": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member2/M2-F2-08.png",
+    "url": "/api/reservations/6aeb8eb66aee06fd47c28dfe/cancel",
+    "at": "2026-11-04T20:02:43.399Z"
+  },
+  "M2-F2-09": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member2/M2-F2-09.png",
+    "url": "/api/admin/reservations/expire-overdue",
+    "at": "2026-11-04T20:02:52.582Z"
+  },
+  "M2-F2-N4": {
+    "expected": 403,
+    "serverLogged": 403,
+    "ok": true,
+    "screenshot": "screenshots/Member2/M2-F2-N4.png",
+    "url": "/api/admin/reservations/expire-overdue",
+    "at": "2026-11-04T20:03:01.735Z"
+  }
+}

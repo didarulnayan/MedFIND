@@ -1,0 +1,99 @@
+
+> medfind-bd-backend@1.0.0 test
+> node --test --test-concurrency=1 "tests/**/*.test.js"
+
+[db] connected to MongoDB 127.0.0.1/medfind_bd_test
+▶ Common auth
+  ✔ rejects missing token with 401 (3.0096ms)
+  ✔ rejects wrong role with 403 (4.1609ms)
+  ✔ rejects duplicate registration with 409 (3.5935ms)
+✔ Common auth (409.1111ms)
+▶ Member 1 - Feature 1: Medicine Catalog Management
+  ✔ master list search flags medicines already in catalog (8.8764ms)
+  ✔ list catalog with status counts (10.4367ms)
+  ✔ add medicine from master list (201) and duplicate (409) (33.1443ms)
+  ✔ invalid medicine data returns 400 (4.3818ms)
+  ✔ edit price & stock records price history and updates last updated (25.3891ms)
+  ✔ get one catalog item; other owner gets 404 (8.8463ms)
+  ✔ remove medicine (soft delete) then 404 (19.1359ms)
+✔ Member 1 - Feature 1: Medicine Catalog Management (110.6112ms)
+▶ Member 1 - Feature 2: Stock & Expiry Tracking
+  ✔ stock overview excludes expired batches (7.0666ms)
+  ✔ add batch (201), duplicate batch (409), expired batch (400) (33.3936ms)
+  ✔ batches listed earliest-expiry first with next batch to use (5.5146ms)
+  ✔ edit and delete batch recalculate stock (29.4448ms)
+  ✔ expiry inventory 30/60/90/expired (18.0037ms)
+  ✔ dispense consumes earliest-expiring batch first; too much -> 409 (26.8516ms)
+✔ Member 1 - Feature 2: Stock & Expiry Tracking (120.5282ms)
+▶ Member 2 - Feature 1: Medicine Details & Reservation Request
+  ✔ medicine details lists only verified pharmacies with price/stock/updated (6.1334ms)
+  ✔ availability summary with estimated total (5.0094ms)
+  ✔ unverified pharmacy -> 404 (3.0925ms)
+[email:mock] to=rahim.owner@medfind.test subject="MedFind BD: New reservation R-1019"
+  ✔ create reservation (201, Pending); insufficient stock (409); prescription required (400) (84.6278ms)
+  ✔ pickup outside opening hours -> 400 (8.3068ms)
+[email:mock] to=rahim.owner@medfind.test subject="MedFind BD: New reservation R-1020"
+  ✔ upload prescription to pending reservation (24.0148ms)
+✔ Member 2 - Feature 1: Medicine Details & Reservation Request (131.456ms)
+▶ Member 2 - Feature 2: Reservation Status Tracking
+  ✔ patient list with tab counts (7.0019ms)
+  ✔ owner inbox shows pending (9.7378ms)
+  ✔ invalid transition Pending -> Collected is 409 (5.8057ms)
+[email:mock] to=imran@medfind.test subject="MedFind BD: Reservation R-1019 is Confirmed"
+[email:mock] to=imran@medfind.test subject="MedFind BD: Reservation R-1019 is Ready for pickup"
+  ✔ full workflow Pending -> Confirmed -> ReadyForPickup -> Collected reduces stock FEFO (43.9285ms)
+[email:mock] to=imran@medfind.test subject="MedFind BD: Reservation R-1019 is Collected"
+  ✔ timeline detail for patient (10.9865ms)
+[email:mock] to=imran@medfind.test subject="MedFind BD: Reservation R-1012 rejected"
+  ✔ reject with reason, and cancel by patient (37.5103ms)
+  ✔ admin expires overdue reservations; non-admin forbidden (10.7801ms)
+✔ Member 2 - Feature 2: Reservation Status Tracking (126.0889ms)
+[email:mock] to=rahim.owner@medfind.test subject="MedFind BD: Reservation R-1011 cancelled"
+▶ Member 3 - Feature 1: Medicine Search & Filter
+  ✔ suggestions return generic and brand matches (4.3854ms)
+[email:mock] to=imran@medfind.test subject="MedFind BD: Reservation R-1018 expired"
+  ✔ search with filters and pharmacy count (14.7486ms)
+  ✔ price range and validation (10.1708ms)
+  ✔ no results message (14.7144ms)
+  ✔ filter options and popular searches (9.1471ms)
+✔ Member 3 - Feature 1: Medicine Search & Filter (53.403ms)
+▶ Member 3 - Feature 2: Nearby Pharmacies & Sorting
+  ✔ areas and resolve location (5.4887ms)
+  ✔ nearby pharmacies stocking medicine sorted by distance (5.8777ms)
+  ✔ sort by price and rating (6.1817ms)
+  ✔ empty result suggests larger radius; missing location 400 (4.8212ms)
+  ✔ pharmacy summary for map marker (5.9578ms)
+✔ Member 3 - Feature 2: Nearby Pharmacies & Sorting (28.5175ms)
+▶ Member 4 - Feature 1: Pharmacy Verification & Reviews
+  ✔ owner registers pharmacy -> Pending; second time 409 (23.2198ms)
+  ✔ unverified pharmacy hidden from public profile (2.9158ms)
+  ✔ admin list and detail (13.1361ms)
+  ✔ verify requires checklist; reject requires note; verified appears publicly (30.9183ms)
+[email:mock] to=new.owner@medfind.test subject="MedFind BD: Pharmacy verified"
+  ✔ rejected owner resubmits licence -> Pending (72.2577ms)
+  ✔ profile with rating summary and reviews (7.6106ms)
+  ✔ eligible patient reviews collected reservation; duplicates and ineligible blocked (35.9361ms)
+✔ Member 4 - Feature 1: Pharmacy Verification & Reviews (186.2994ms)
+▶ Member 4 - Feature 2: Complaints & Disputes
+  ✔ file reservation complaint with evidence; not-own reservation 403; invalid 400 (42.4525ms)
+[email:mock] to=rahim.owner@medfind.test subject="MedFind BD: New complaint C-207"
+  ✔ my complaints and detail access control (22.6284ms)
+  ✔ owner responds; other owner cannot (19.8295ms)
+[email:mock] to=ayesha@medfind.test subject="MedFind BD: Pharmacy replied to C-207"
+[email:mock] to=ayesha@medfind.test subject="MedFind BD: Complaint C-207 updated"
+[email:mock] to=rahim.owner@medfind.test subject="MedFind BD: Complaint C-207 updated"
+  ✔ admin status workflow with invalid transition (49.234ms)
+[email:mock] to=ayesha@medfind.test subject="MedFind BD: Complaint C-207 updated"
+[email:mock] to=rahim.owner@medfind.test subject="MedFind BD: Complaint C-207 updated"
+[notify] failed: Operation interrupted because client was closed
+[notify] failed: Operation interrupted because client was closed
+  ✔ suspension needs repeated valid complaints; suspended pharmacy hidden from search (42.4032ms)
+✔ Member 4 - Feature 2: Complaints & Disputes (176.7986ms)
+ℹ tests 51
+ℹ suites 9
+ℹ pass 51
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6139.9901

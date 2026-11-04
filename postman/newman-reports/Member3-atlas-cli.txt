@@ -1,0 +1,110 @@
+newman
+
+MedFind BD - Member 3 - Abdullah Al Muqit (22201783)
+
+Folder Feature 01 - Medicine Search & Filter
+Sub-folder M3-F1-01 Partial-match suggestions
+  GET http://127.0.0.1:1783/api/search/suggestions?q=para&limit=8 [200 OK, 1.12kB, 95ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F1-02 Search medicines by brand or generic name
+  GET http://127.0.0.1:1783/api/search/medicines?q=paracetamol&page=1&limit=10 [200 OK, 3.82kB, 237ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F1-03 Search with filters
+  GET http://127.0.0.1:1783/api/search/medicines?q=paracetamol&dosageForm=Tablet&strength=500 mg&manufacturer=Beximco Pharmaceuticals,Square Pharmaceuticals&minPrice=1&maxPrice=5&inStock=true&sort=price_asc [200 OK, 1.96kB, 230ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F1-04 Filter options with counts
+  GET http://127.0.0.1:1783/api/search/filters?q=paracetamol [200 OK, 1.41kB, 227ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F1-05 Popular searches
+  GET http://127.0.0.1:1783/api/search/popular?limit=6 [200 OK, 1.2kB, 77ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F1-06 No results found
+  GET http://127.0.0.1:1783/api/search/medicines?q=paracetamool [200 OK, 1.39kB, 228ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F1-N1 Invalid price range (400)
+  GET http://127.0.0.1:1783/api/search/medicines?q=napa&minPrice=50&maxPrice=10 [400 Bad Request, 1.05kB, 2ms]
+  Pass  Status code is 400
+  Pass  Response has success flag
+
+Sub-folder M3-F1-N2 Suggestion query too short (400)
+  GET http://127.0.0.1:1783/api/search/suggestions?q=p [400 Bad Request, 1.04kB, 2ms]
+  Pass  Status code is 400
+  Pass  Response has success flag
+
+Folder Feature 02 - Nearby Pharmacies & Sorting
+Sub-folder M3-F2-01 Selectable areas (Choose location)
+  GET http://127.0.0.1:1783/api/locations/areas?city=Dhaka [200 OK, 1.82kB, 79ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F2-02 Use my location (resolve coordinates)
+  GET http://127.0.0.1:1783/api/locations/resolve?lat=23.8069&lng=90.3687 [200 OK, 1.22kB, 78ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F2-03 Nearby pharmacies stocking a medicine (sort by distance)
+  GET http://127.0.0.1:1783/api/nearby/pharmacies?medicineId=3bec8373567f1e169fbef9cb&lat=23.8069&lng=90.3687&radiusKm=5&sort=distance [200 OK, 3.05kB, 157ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F2-04 Nearby pharmacies by selected area, sorted by price
+  GET http://127.0.0.1:1783/api/nearby/pharmacies?medicineId=3bec8373567f1e169fbef9cb&areaId=6eb7024f30ececf8f51c3e21&radiusKm=5&sort=price [200 OK, 3.05kB, 229ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F2-05 Sort by rating
+  GET http://127.0.0.1:1783/api/nearby/pharmacies?medicineId=3bec8373567f1e169fbef9cb&lat=23.8069&lng=90.3687&radiusKm=10&sort=rating [200 OK, 3.49kB, 155ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F2-06 Open now + most recently updated stock
+  GET http://127.0.0.1:1783/api/nearby/pharmacies?medicineId=3bec8373567f1e169fbef9cb&lat=23.8069&lng=90.3687&radiusKm=10&sort=updated&openNow=true [200 OK, 1.74kB, 154ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F2-07 No pharmacies nearby
+  GET http://127.0.0.1:1783/api/nearby/pharmacies?medicineId=3bec8373567f1e169fbef9cb&lat=22.326&lng=91.812&radiusKm=5 [200 OK, 1.45kB, 151ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F2-08 Pharmacy summary (map marker / details)
+  GET http://127.0.0.1:1783/api/nearby/pharmacies/0367672641e1463cf4ee98cd?lat=23.8069&lng=90.3687&medicineId=3bec8373567f1e169fbef9cb [200 OK, 1.48kB, 307ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F2-N1 Missing location (400)
+  GET http://127.0.0.1:1783/api/nearby/pharmacies?medicineId=3bec8373567f1e169fbef9cb [400 Bad Request, 1.03kB, 2ms]
+  Pass  Status code is 400
+  Pass  Response has success flag
+
+-------------------------------------------------------------------
+|                         |          executed |            failed |
+--------------------------+-------------------+--------------------
+|              iterations |                 1 |                 0 |
+--------------------------+-------------------+--------------------
+|                requests |                17 |                 0 |
+--------------------------+-------------------+--------------------
+|            test-scripts |                17 |                 0 |
+--------------------------+-------------------+--------------------
+|      prerequest-scripts |                17 |                 0 |
+--------------------------+-------------------+--------------------
+|              assertions |                34 |                 0 |
+-------------------------------------------------------------------
+| total run duration: 3.8s                                        |
+-------------------------------------------------------------------
+| total data received: 15.84kB (approx)                           |
+-------------------------------------------------------------------
+| average response time: 141ms [min: 2ms, max: 307ms, s.d.: 90ms] |
+-------------------------------------------------------------------

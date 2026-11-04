@@ -1,0 +1,250 @@
+{
+  "M4-F1-01": {
+    "expected": 201,
+    "serverLogged": 201,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F1-01.png",
+    "url": "/api/pharmacies/register",
+    "at": "2026-11-04T20:09:07.971Z"
+  },
+  "M4-F1-02": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F1-02.png",
+    "url": "/api/pharmacies/mine/verification",
+    "at": "2026-11-04T20:09:17.150Z"
+  },
+  "M4-F1-03": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F1-03.png",
+    "url": "/api/admin/pharmacies",
+    "at": "2026-11-04T20:09:26.287Z"
+  },
+  "M4-F1-04": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F1-04.png",
+    "url": "/api/admin/pharmacies/6aeb90ea5d3cdae6a0e9441c",
+    "at": "2026-11-04T20:09:35.444Z"
+  },
+  "M4-F1-05": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F1-05.png",
+    "url": "/api/admin/pharmacies/6aeb90ea5d3cdae6a0e9441c/verification",
+    "at": "2026-11-04T20:09:44.580Z"
+  },
+  "M4-F1-06": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F1-06.png",
+    "url": "/api/admin/pharmacies/24157e5f946b95812b4b9b3d/verification",
+    "at": "2026-11-04T20:09:53.695Z"
+  },
+  "M4-F1-N1": {
+    "expected": 400,
+    "serverLogged": 400,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F1-N1.png",
+    "url": "/api/admin/pharmacies/f6289c77bd8917169b0eece6/verification",
+    "at": "2026-11-04T20:10:02.796Z"
+  },
+  "M4-F1-07": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F1-07.png",
+    "url": "/api/pharmacies/mine/licence",
+    "at": "2026-11-04T20:10:11.986Z"
+  },
+  "M4-F1-08": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F1-08.png",
+    "url": "/api/pharmacies/0367672641e1463cf4ee98cd",
+    "at": "2026-11-04T20:10:27.329Z"
+  },
+  "M4-F1-N2": {
+    "expected": 404,
+    "serverLogged": 404,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F1-N2.png",
+    "url": "/api/pharmacies/f6289c77bd8917169b0eece6",
+    "at": "2026-11-04T20:10:36.443Z"
+  },
+  "M4-F1-09": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F1-09.png",
+    "url": "/api/pharmacies/0367672641e1463cf4ee98cd/reviews",
+    "at": "2026-11-04T20:10:45.616Z"
+  },
+  "M4-F1-10": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F1-10.png",
+    "url": "/api/pharmacies/0367672641e1463cf4ee98cd/reviewable-reservations",
+    "at": "2026-11-04T20:10:54.798Z"
+  },
+  "M4-F1-11": {
+    "expected": 201,
+    "serverLogged": 201,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F1-11.png",
+    "url": "/api/pharmacies/0367672641e1463cf4ee98cd/reviews",
+    "at": "2026-11-04T20:11:03.918Z"
+  },
+  "M4-F1-N3": {
+    "expected": 409,
+    "serverLogged": 409,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F1-N3.png",
+    "url": "/api/pharmacies/0367672641e1463cf4ee98cd/reviews",
+    "at": "2026-11-04T20:11:13.169Z"
+  },
+  "M4-F1-N4": {
+    "expected": 403,
+    "serverLogged": 403,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F1-N4.png",
+    "url": "/api/admin/pharmacies",
+    "at": "2026-11-04T20:11:22.346Z"
+  },
+  "M4-F2-01": {
+    "expected": 201,
+    "serverLogged": 201,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F2-01.png",
+    "url": "/api/complaints",
+    "at": "2026-11-04T20:11:31.475Z"
+  },
+  "M4-F2-02": {
+    "expected": 201,
+    "serverLogged": 201,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F2-02.png",
+    "url": "/api/complaints",
+    "at": "2026-11-04T20:11:46.875Z"
+  },
+  "M4-F2-N1": {
+    "expected": 400,
+    "serverLogged": 400,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F2-N1.png",
+    "url": "/api/complaints",
+    "at": "2026-11-04T20:11:56.004Z"
+  },
+  "M4-F2-N2": {
+    "expected": 403,
+    "serverLogged": 403,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F2-N2.png",
+    "url": "/api/complaints",
+    "at": "2026-11-04T20:12:05.138Z"
+  },
+  "M4-F2-03": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F2-03.png",
+    "url": "/api/complaints/my",
+    "at": "2026-11-04T20:12:14.218Z"
+  },
+  "M4-F2-04": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F2-04.png",
+    "url": "/api/owner/complaints",
+    "at": "2026-11-04T20:12:23.328Z"
+  },
+  "M4-F2-05": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F2-05.png",
+    "url": "/api/owner/complaints/6aeb91805d3cdae6a0e94461/response",
+    "at": "2026-11-04T20:12:32.485Z"
+  },
+  "M4-F2-N3": {
+    "expected": 403,
+    "serverLogged": 403,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F2-N3.png",
+    "url": "/api/owner/complaints/6aeb91805d3cdae6a0e94461/response",
+    "at": "2026-11-04T20:12:41.682Z"
+  },
+  "M4-F2-06": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F2-06.png",
+    "url": "/api/admin/complaints",
+    "at": "2026-11-04T20:12:50.821Z"
+  },
+  "M4-F2-07": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F2-07.png",
+    "url": "/api/complaints/6aeb91805d3cdae6a0e94461",
+    "at": "2026-11-04T20:12:59.978Z"
+  },
+  "M4-F2-08": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F2-08.png",
+    "url": "/api/admin/complaints/6aeb91805d3cdae6a0e94461/status",
+    "at": "2026-11-04T20:13:09.101Z"
+  },
+  "M4-F2-09": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F2-09.png",
+    "url": "/api/admin/complaints/6aeb91805d3cdae6a0e94461/status",
+    "at": "2026-11-04T20:13:18.235Z"
+  },
+  "M4-F2-N4": {
+    "expected": 409,
+    "serverLogged": 409,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F2-N4.png",
+    "url": "/api/admin/complaints/6aeb91805d3cdae6a0e94461/status",
+    "at": "2026-11-04T20:13:27.376Z"
+  },
+  "M4-F2-N5": {
+    "expected": 409,
+    "serverLogged": 409,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F2-N5.png",
+    "url": "/api/admin/pharmacies/e9a8e974b7602290887787a9/suspend",
+    "at": "2026-11-04T20:13:36.512Z"
+  },
+  "M4-F2-10": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F2-10.png",
+    "url": "/api/admin/pharmacies/690efc4e8f369b935e83cb6b/suspend",
+    "at": "2026-11-04T20:13:45.655Z"
+  },
+  "M4-F2-11": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member4/M4-F2-11.png",
+    "url": "/api/admin/pharmacies/690efc4e8f369b935e83cb6b/reinstate",
+    "at": "2026-11-04T20:13:54.778Z"
+  }
+}

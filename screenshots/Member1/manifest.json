@@ -1,0 +1,162 @@
+{
+  "M1-F1-N4": {
+    "expected": 401,
+    "serverLogged": 401,
+    "ok": true,
+    "screenshot": "screenshots/Member1/M1-F1-N4.png",
+    "url": "/api/owner/catalog",
+    "at": "2026-11-04T19:56:43.748Z"
+  },
+  "M1-F1-N3": {
+    "expected": 403,
+    "serverLogged": 403,
+    "ok": true,
+    "screenshot": "screenshots/Member1/M1-F1-N3.png",
+    "url": "/api/owner/catalog",
+    "at": "2026-11-04T19:56:53.022Z"
+  },
+  "M1-F1-01": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member1/M1-F1-01.png",
+    "url": "/api/master-medicines",
+    "at": "2026-11-04T19:57:02.250Z"
+  },
+  "M1-F1-02": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member1/M1-F1-02.png",
+    "url": "/api/owner/catalog",
+    "at": "2026-11-04T19:57:11.373Z"
+  },
+  "M1-F1-03": {
+    "expected": 201,
+    "serverLogged": 201,
+    "ok": true,
+    "screenshot": "screenshots/Member1/M1-F1-03.png",
+    "url": "/api/owner/catalog",
+    "at": "2026-11-04T19:57:20.563Z"
+  },
+  "M1-F1-N1": {
+    "expected": 409,
+    "serverLogged": 409,
+    "ok": true,
+    "screenshot": "screenshots/Member1/M1-F1-N1.png",
+    "url": "/api/owner/catalog",
+    "at": "2026-11-04T19:57:29.686Z"
+  },
+  "M1-F1-N2": {
+    "expected": 400,
+    "serverLogged": 400,
+    "ok": true,
+    "screenshot": "screenshots/Member1/M1-F1-N2.png",
+    "url": "/api/owner/catalog",
+    "at": "2026-11-04T19:57:38.837Z"
+  },
+  "M1-F1-04": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member1/M1-F1-04.png",
+    "url": "/api/owner/catalog/6aeb8e2672dad8d54ca52fe1",
+    "at": "2026-11-04T19:57:48.013Z"
+  },
+  "M1-F1-05": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member1/M1-F1-05.png",
+    "url": "/api/owner/catalog/6aeb8e2672dad8d54ca52fe1",
+    "at": "2026-11-04T19:57:57.135Z"
+  },
+  "M1-F1-06": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member1/M1-F1-06.png",
+    "url": "/api/owner/catalog/6aeb8e2672dad8d54ca52fe1",
+    "at": "2026-11-04T19:58:06.293Z"
+  },
+  "M1-F2-01": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member1/M1-F2-01.png",
+    "url": "/api/owner/stock/overview",
+    "at": "2026-11-04T19:58:15.431Z"
+  },
+  "M1-F2-02": {
+    "expected": 201,
+    "serverLogged": 201,
+    "ok": true,
+    "screenshot": "screenshots/Member1/M1-F2-02.png",
+    "url": "/api/owner/stock/batches",
+    "at": "2026-11-04T19:58:24.567Z"
+  },
+  "M1-F2-N2": {
+    "expected": 409,
+    "serverLogged": 409,
+    "ok": true,
+    "screenshot": "screenshots/Member1/M1-F2-N2.png",
+    "url": "/api/owner/stock/batches",
+    "at": "2026-11-04T19:58:33.713Z"
+  },
+  "M1-F2-N1": {
+    "expected": 400,
+    "serverLogged": 400,
+    "ok": true,
+    "screenshot": "screenshots/Member1/M1-F2-N1.png",
+    "url": "/api/owner/stock/batches",
+    "at": "2026-11-04T19:58:42.921Z"
+  },
+  "M1-F2-03": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member1/M1-F2-03.png",
+    "url": "/api/owner/stock/items/209fc9c7d78228e98d3e949e/batches",
+    "at": "2026-11-04T19:58:52.080Z"
+  },
+  "M1-F2-04": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member1/M1-F2-04.png",
+    "url": "/api/owner/stock/batches/6aeb8e6672dad8d54ca53013",
+    "at": "2026-11-04T19:59:01.188Z"
+  },
+  "M1-F2-05": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member1/M1-F2-05.png",
+    "url": "/api/owner/stock/expiry",
+    "at": "2026-11-04T19:59:10.318Z"
+  },
+  "M1-F2-06": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member1/M1-F2-06.png",
+    "url": "/api/owner/stock/items/209fc9c7d78228e98d3e949e/dispense",
+    "at": "2026-11-04T19:59:19.467Z"
+  },
+  "M1-F2-N3": {
+    "expected": 409,
+    "serverLogged": 409,
+    "ok": true,
+    "screenshot": "screenshots/Member1/M1-F2-N3.png",
+    "url": "/api/owner/stock/items/209fc9c7d78228e98d3e949e/dispense",
+    "at": "2026-11-04T19:59:28.594Z"
+  },
+  "M1-F2-07": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member1/M1-F2-07.png",
+    "url": "/api/owner/stock/batches/6aeb8e6672dad8d54ca53013",
+    "at": "2026-11-04T19:59:37.758Z"
+  }
+}

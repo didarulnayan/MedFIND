@@ -1,0 +1,134 @@
+newman
+
+MedFind BD - Member 1 - Audrija Chowdhury (22299421)
+
+Folder 00 Setup - Login (common)
+Sub-folder Login -> ownerToken (rahim.owner@medfind.test)
+  POST http://127.0.0.1:9421/api/auth/login [200 OK, 1.49kB, 79ms]
+  Pass  Logged in
+
+Sub-folder Login -> patientToken (ayesha@medfind.test)
+  POST http://127.0.0.1:9421/api/auth/login [200 OK, 1.49kB, 55ms]
+  Pass  Logged in
+
+Folder Feature 01 - Medicine Catalog Management
+Sub-folder M1-F1-N4 Missing token (401)
+  GET http://127.0.0.1:9421/api/owner/catalog [401 Unauthorized, 1.02kB, 2ms]
+  Pass  Status code is 401
+  Pass  Response has success flag
+
+Sub-folder M1-F1-N3 Patient cannot manage a catalog (403)
+  GET http://127.0.0.1:9421/api/owner/catalog [403 Forbidden, 977B, 4ms]
+  Pass  Status code is 403
+  Pass  Response has success flag
+
+Sub-folder M1-F1-01 Search master medicine list
+  GET http://127.0.0.1:9421/api/master-medicines?search=ostocal&page=1&limit=10 [200 OK, 1.28kB, 9ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M1-F1-02 View medicine catalog
+  GET http://127.0.0.1:9421/api/owner/catalog?status=all&page=1&limit=10 [200 OK, 4.34kB, 13ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M1-F1-03 Add medicine to catalog
+  POST http://127.0.0.1:9421/api/owner/catalog [201 Created, 1.35kB, 35ms]
+  Pass  Status code is 201
+  Pass  Response has success flag
+
+Sub-folder M1-F1-N1 Add duplicate medicine (409)
+  POST http://127.0.0.1:9421/api/owner/catalog [409 Conflict, 982B, 5ms]
+  Pass  Status code is 409
+  Pass  Response has success flag
+
+Sub-folder M1-F1-N2 Invalid medicine data (400)
+  POST http://127.0.0.1:9421/api/owner/catalog [400 Bad Request, 1.18kB, 5ms]
+  Pass  Status code is 400
+  Pass  Response has success flag
+
+Sub-folder M1-F1-04 View one catalog medicine
+  GET http://127.0.0.1:9421/api/owner/catalog/6aeb8dd572dad8d54ca52f64 [200 OK, 1.34kB, 6ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M1-F1-05 Edit catalog medicine (price & stock)
+  PATCH http://127.0.0.1:9421/api/owner/catalog/6aeb8dd572dad8d54ca52f64 [200 OK, 1.35kB, 19ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M1-F1-06 Remove medicine from catalog
+  DELETE http://127.0.0.1:9421/api/owner/catalog/6aeb8dd572dad8d54ca52f64 [200 OK, 1.06kB, 17ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Folder Feature 02 - Stock & Expiry Tracking
+Sub-folder M1-F2-01 Stock overview
+  GET http://127.0.0.1:9421/api/owner/stock/overview [200 OK, 3.94kB, 8ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M1-F2-02 Add stock batch
+  POST http://127.0.0.1:9421/api/owner/stock/batches [201 Created, 1.41kB, 17ms]
+  Pass  Status code is 201
+  Pass  Response has success flag
+
+Sub-folder M1-F2-N2 Duplicate batch number (409)
+  POST http://127.0.0.1:9421/api/owner/stock/batches [409 Conflict, 990B, 6ms]
+  Pass  Status code is 409
+  Pass  Response has success flag
+
+Sub-folder M1-F2-N1 Expired batch rejected (400)
+  POST http://127.0.0.1:9421/api/owner/stock/batches [400 Bad Request, 1.01kB, 5ms]
+  Pass  Status code is 400
+  Pass  Response has success flag
+
+Sub-folder M1-F2-03 View medicine batches (FEFO order)
+  GET http://127.0.0.1:9421/api/owner/stock/items/209fc9c7d78228e98d3e949e/batches [200 OK, 2.64kB, 6ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M1-F2-04 Edit stock batch
+  PATCH http://127.0.0.1:9421/api/owner/stock/batches/6aeb8dd672dad8d54ca52f96 [200 OK, 1.26kB, 17ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M1-F2-05 Expiry inventory (30 / 60 / 90 days)
+  GET http://127.0.0.1:9421/api/owner/stock/expiry?window=30 [200 OK, 2.06kB, 9ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M1-F2-06 Dispense stock (earliest-expiring batch first)
+  POST http://127.0.0.1:9421/api/owner/stock/items/209fc9c7d78228e98d3e949e/dispense [200 OK, 1.35kB, 18ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M1-F2-N3 Insufficient non-expired stock (409)
+  POST http://127.0.0.1:9421/api/owner/stock/items/209fc9c7d78228e98d3e949e/dispense [409 Conflict, 1kB, 6ms]
+  Pass  Status code is 409
+  Pass  Response has success flag
+
+Sub-folder M1-F2-07 Remove stock batch
+  DELETE http://127.0.0.1:9421/api/owner/stock/batches/6aeb8dd672dad8d54ca52f96 [200 OK, 1kB, 17ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+-----------------------------------------------------------------
+|                         |         executed |           failed |
+--------------------------+------------------+-------------------
+|              iterations |                1 |                0 |
+--------------------------+------------------+-------------------
+|                requests |               22 |                0 |
+--------------------------+------------------+-------------------
+|            test-scripts |               22 |                0 |
+--------------------------+------------------+-------------------
+|      prerequest-scripts |               22 |                0 |
+--------------------------+------------------+-------------------
+|              assertions |               42 |                0 |
+-----------------------------------------------------------------
+| total run duration: 2.3s                                      |
+-----------------------------------------------------------------
+| total data received: 14.26kB (approx)                         |
+-----------------------------------------------------------------
+| average response time: 16ms [min: 2ms, max: 79ms, s.d.: 18ms] |
+-----------------------------------------------------------------

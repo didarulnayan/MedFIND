@@ -1,0 +1,507 @@
+newman
+
+MedFind BD - Master Collection (all 8 features)
+
+Folder 00 Setup - Login all demo roles
+Sub-folder Login -> ownerToken (rahim.owner@medfind.test)
+  POST http://127.0.0.1:5000/api/auth/login [200 OK, 1.49kB, 81ms]
+  Pass  Logged in
+
+Sub-folder Login -> owner2Token (tanvir.owner@medfind.test)
+  POST http://127.0.0.1:5000/api/auth/login [200 OK, 1.49kB, 51ms]
+  Pass  Logged in
+
+Sub-folder Login -> newOwnerToken (new.owner@medfind.test)
+  POST http://127.0.0.1:5000/api/auth/login [200 OK, 1.49kB, 50ms]
+  Pass  Logged in
+
+Sub-folder Login -> rejectedOwnerToken (sabbir.owner@medfind.test)
+  POST http://127.0.0.1:5000/api/auth/login [200 OK, 1.49kB, 49ms]
+  Pass  Logged in
+
+Sub-folder Login -> patientToken (ayesha@medfind.test)
+  POST http://127.0.0.1:5000/api/auth/login [200 OK, 1.49kB, 52ms]
+  Pass  Logged in
+
+Sub-folder Login -> patient2Token (imran@medfind.test)
+  POST http://127.0.0.1:5000/api/auth/login [200 OK, 1.49kB, 48ms]
+  Pass  Logged in
+
+Sub-folder Login -> adminToken (admin@medfind.test)
+  POST http://127.0.0.1:5000/api/auth/login [200 OK, 1.48kB, 49ms]
+  Pass  Logged in
+
+Folder Member 1 - Audrija Chowdhury / Feature 01 - Medicine Catalog Management
+Sub-folder M1-F1-N4 Missing token (401)
+  GET http://127.0.0.1:5000/api/owner/catalog [401 Unauthorized, 1.02kB, 2ms]
+  Pass  Status code is 401
+  Pass  Response has success flag
+
+Sub-folder M1-F1-N3 Patient cannot manage a catalog (403)
+  GET http://127.0.0.1:5000/api/owner/catalog [403 Forbidden, 977B, 4ms]
+  Pass  Status code is 403
+  Pass  Response has success flag
+
+Sub-folder M1-F1-01 Search master medicine list
+  GET http://127.0.0.1:5000/api/master-medicines?search=ostocal&page=1&limit=10 [200 OK, 1.28kB, 10ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M1-F1-02 View medicine catalog
+  GET http://127.0.0.1:5000/api/owner/catalog?status=all&page=1&limit=10 [200 OK, 4.34kB, 12ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M1-F1-03 Add medicine to catalog
+  POST http://127.0.0.1:5000/api/owner/catalog [201 Created, 1.35kB, 37ms]
+  Pass  Status code is 201
+  Pass  Response has success flag
+
+Sub-folder M1-F1-N1 Add duplicate medicine (409)
+  POST http://127.0.0.1:5000/api/owner/catalog [409 Conflict, 982B, 5ms]
+  Pass  Status code is 409
+  Pass  Response has success flag
+
+Sub-folder M1-F1-N2 Invalid medicine data (400)
+  POST http://127.0.0.1:5000/api/owner/catalog [400 Bad Request, 1.18kB, 4ms]
+  Pass  Status code is 400
+  Pass  Response has success flag
+
+Sub-folder M1-F1-04 View one catalog medicine
+  GET http://127.0.0.1:5000/api/owner/catalog/6aeb922e2662f489e845d267 [200 OK, 1.34kB, 6ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M1-F1-05 Edit catalog medicine (price & stock)
+  PATCH http://127.0.0.1:5000/api/owner/catalog/6aeb922e2662f489e845d267 [200 OK, 1.35kB, 19ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M1-F1-06 Remove medicine from catalog
+  DELETE http://127.0.0.1:5000/api/owner/catalog/6aeb922e2662f489e845d267 [200 OK, 1.06kB, 17ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Folder Member 1 - Audrija Chowdhury / Feature 02 - Stock & Expiry Tracking
+Sub-folder M1-F2-01 Stock overview
+  GET http://127.0.0.1:5000/api/owner/stock/overview [200 OK, 3.94kB, 10ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M1-F2-02 Add stock batch
+  POST http://127.0.0.1:5000/api/owner/stock/batches [201 Created, 1.41kB, 18ms]
+  Pass  Status code is 201
+  Pass  Response has success flag
+
+Sub-folder M1-F2-N2 Duplicate batch number (409)
+  POST http://127.0.0.1:5000/api/owner/stock/batches [409 Conflict, 990B, 6ms]
+  Pass  Status code is 409
+  Pass  Response has success flag
+
+Sub-folder M1-F2-N1 Expired batch rejected (400)
+  POST http://127.0.0.1:5000/api/owner/stock/batches [400 Bad Request, 1.01kB, 5ms]
+  Pass  Status code is 400
+  Pass  Response has success flag
+
+Sub-folder M1-F2-03 View medicine batches (FEFO order)
+  GET http://127.0.0.1:5000/api/owner/stock/items/209fc9c7d78228e98d3e949e/batches [200 OK, 2.64kB, 6ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M1-F2-04 Edit stock batch
+  PATCH http://127.0.0.1:5000/api/owner/stock/batches/6aeb922f2662f489e845d299 [200 OK, 1.26kB, 17ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M1-F2-05 Expiry inventory (30 / 60 / 90 days)
+  GET http://127.0.0.1:5000/api/owner/stock/expiry?window=30 [200 OK, 2.06kB, 9ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M1-F2-06 Dispense stock (earliest-expiring batch first)
+  POST http://127.0.0.1:5000/api/owner/stock/items/209fc9c7d78228e98d3e949e/dispense [200 OK, 1.35kB, 18ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M1-F2-N3 Insufficient non-expired stock (409)
+  POST http://127.0.0.1:5000/api/owner/stock/items/209fc9c7d78228e98d3e949e/dispense [409 Conflict, 1kB, 6ms]
+  Pass  Status code is 409
+  Pass  Response has success flag
+
+Sub-folder M1-F2-07 Remove stock batch
+  DELETE http://127.0.0.1:5000/api/owner/stock/batches/6aeb922f2662f489e845d299 [200 OK, 1kB, 17ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Folder Member 2 - Abdullah Al Zahur Rafi / Feature 01 - Medicine Details & Reservation Request
+Sub-folder M2-F1-01 Medicine details with pharmacy availability
+  GET http://127.0.0.1:5000/api/medicines/3bec8373567f1e169fbef9cb?sort=price [200 OK, 3.53kB, 8ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M2-F1-02 Pharmacy availability & reservation summary
+  GET http://127.0.0.1:5000/api/medicines/3bec8373567f1e169fbef9cb/pharmacies/0367672641e1463cf4ee98cd/availability?quantity=10 [200 OK, 1.8kB, 7ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M2-F1-N4 Unverified pharmacy (404)
+  GET http://127.0.0.1:5000/api/medicines/3bec8373567f1e169fbef9cb/pharmacies/24157e5f946b95812b4b9b3d/availability [404 Not Found, 979B, 3ms]
+  Pass  Status code is 404
+  Pass  Response has success flag
+
+Sub-folder M2-F1-03 Send reservation request
+  POST http://127.0.0.1:5000/api/reservations (node:25124) [DEP0044] DeprecationWarning: The `util.isArray` API is deprecated. Please use `Array.isArray()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[201 Created, 1.37kB, 34ms]
+  Pass  Status code is 201
+  Pass  Response has success flag
+
+Sub-folder M2-F1-04 Upload prescription image
+  PUT http://127.0.0.1:5000/api/reservations/6aeb92302662f489e845d2e0/prescription [200 OK, 1.09kB, 17ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M2-F1-N1 Prescription-only medicine without prescription (400)
+  POST http://127.0.0.1:5000/api/reservations [400 Bad Request, 1.03kB, 5ms]
+  Pass  Status code is 400
+  Pass  Response has success flag
+
+Sub-folder M2-F1-N2 Quantity exceeds available stock (409)
+  POST http://127.0.0.1:5000/api/reservations [409 Conflict, 1kB, 7ms]
+  Pass  Status code is 409
+  Pass  Response has success flag
+
+Sub-folder M2-F1-N3 Pickup time outside opening hours (400)
+  POST http://127.0.0.1:5000/api/reservations [400 Bad Request, 1.02kB, 5ms]
+  Pass  Status code is 400
+  Pass  Response has success flag
+
+Folder Member 2 - Abdullah Al Zahur Rafi / Feature 02 - Reservation Status Tracking
+Sub-folder M2-F2-01 My reservations
+  GET http://127.0.0.1:5000/api/reservations/my?tab=all [200 OK, 2.66kB, 6ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M2-F2-02 Owner reservation inbox
+  GET http://127.0.0.1:5000/api/owner/reservations?status=Pending [200 OK, 2.22kB, 8ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M2-F2-03 Confirm availability (Pending -> Confirmed)
+  PATCH http://127.0.0.1:5000/api/owner/reservations/6aeb92302662f489e845d2e0/status [200 OK, 1.24kB, 18ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M2-F2-04 Mark ready for pickup (Confirmed -> Ready for pickup)
+  PATCH http://127.0.0.1:5000/api/owner/reservations/6aeb92302662f489e845d2e0/status [200 OK, 1.25kB, 18ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M2-F2-05 Mark collected (stock reduces automatically)
+  PATCH http://127.0.0.1:5000/api/owner/reservations/6aeb92302662f489e845d2e0/status [200 OK, 1.33kB, 19ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M2-F2-N1 Invalid status transition (409)
+  PATCH http://127.0.0.1:5000/api/owner/reservations/6aeb92302662f489e845d2e0/status [409 Conflict, 1.01kB, 5ms]
+  Pass  Status code is 409
+  Pass  Response has success flag
+
+Sub-folder M2-F2-N2 Cancel after Ready for pickup / collected (409)
+  PATCH http://127.0.0.1:5000/api/reservations/6aeb92302662f489e845d2e0/cancel [409 Conflict, 1.05kB, 4ms]
+  Pass  Status code is 409
+  Pass  Response has success flag
+
+Sub-folder M2-F2-06 Reservation status timeline
+  GET http://127.0.0.1:5000/api/reservations/6aeb92302662f489e845d2e0 [200 OK, 2.72kB, 5ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M2-F2-N3 Another patient cannot view the reservation (403)
+  GET http://127.0.0.1:5000/api/reservations/6aeb92302662f489e845d2e0 [403 Forbidden, 977B, 4ms]
+  Pass  Status code is 403
+  Pass  Response has success flag
+
+Sub-folder M2-F2-07 Reject reservation with reason
+  PATCH http://127.0.0.1:5000/api/owner/reservations/6aeb922bfa3932f79661ff1f/reject [200 OK, 1.3kB, 18ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M2-F2-08 Patient cancels reservation
+  PATCH http://127.0.0.1:5000/api/reservations/6aeb922bfa3932f79661ff1c/cancel [200 OK, 1.19kB, 19ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M2-F2-09 Expire overdue reservations (scheduled job trigger)
+  POST http://127.0.0.1:5000/api/admin/reservations/expire-overdue [200 OK, 1.01kB, 18ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M2-F2-N4 Non-admin cannot run the expiry job (403)
+  POST http://127.0.0.1:5000/api/admin/reservations/expire-overdue [403 Forbidden, 977B, 3ms]
+  Pass  Status code is 403
+  Pass  Response has success flag
+
+Folder Member 3 - Abdullah Al Muqit / Feature 01 - Medicine Search & Filter
+Sub-folder M3-F1-01 Partial-match suggestions
+  GET http://127.0.0.1:5000/api/search/suggestions?q=para&limit=8 [200 OK, 1.12kB, 4ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F1-02 Search medicines by brand or generic name
+  GET http://127.0.0.1:5000/api/search/medicines?q=paracetamol&page=1&limit=10 [200 OK, 3.82kB, 17ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F1-03 Search with filters
+  GET http://127.0.0.1:5000/api/search/medicines?q=paracetamol&dosageForm=Tablet&strength=500 mg&manufacturer=Beximco Pharmaceuticals,Square Pharmaceuticals&minPrice=1&maxPrice=5&inStock=true&sort=price_asc [200 OK, 1.96kB, 18ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F1-04 Filter options with counts
+  GET http://127.0.0.1:5000/api/search/filters?q=paracetamol [200 OK, 1.41kB, 5ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F1-05 Popular searches
+  GET http://127.0.0.1:5000/api/search/popular?limit=6 [200 OK, 1.2kB, 3ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F1-06 No results found
+  GET http://127.0.0.1:5000/api/search/medicines?q=paracetamool [200 OK, 1.39kB, 18ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F1-N1 Invalid price range (400)
+  GET http://127.0.0.1:5000/api/search/medicines?q=napa&minPrice=50&maxPrice=10 [400 Bad Request, 1.05kB, 1ms]
+  Pass  Status code is 400
+  Pass  Response has success flag
+
+Sub-folder M3-F1-N2 Suggestion query too short (400)
+  GET http://127.0.0.1:5000/api/search/suggestions?q=p [400 Bad Request, 1.04kB, 2ms]
+  Pass  Status code is 400
+  Pass  Response has success flag
+
+Folder Member 3 - Abdullah Al Muqit / Feature 02 - Nearby Pharmacies & Sorting
+Sub-folder M3-F2-01 Selectable areas (Choose location)
+  GET http://127.0.0.1:5000/api/locations/areas?city=Dhaka [200 OK, 1.82kB, 3ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F2-02 Use my location (resolve coordinates)
+  GET http://127.0.0.1:5000/api/locations/resolve?lat=23.8069&lng=90.3687 [200 OK, 1.22kB, 3ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F2-03 Nearby pharmacies stocking a medicine (sort by distance)
+  GET http://127.0.0.1:5000/api/nearby/pharmacies?medicineId=3bec8373567f1e169fbef9cb&lat=23.8069&lng=90.3687&radiusKm=5&sort=distance [200 OK, 3.05kB, 7ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F2-04 Nearby pharmacies by selected area, sorted by price
+  GET http://127.0.0.1:5000/api/nearby/pharmacies?medicineId=3bec8373567f1e169fbef9cb&areaId=6eb7024f30ececf8f51c3e21&radiusKm=5&sort=price [200 OK, 3.05kB, 7ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F2-05 Sort by rating
+  GET http://127.0.0.1:5000/api/nearby/pharmacies?medicineId=3bec8373567f1e169fbef9cb&lat=23.8069&lng=90.3687&radiusKm=10&sort=rating [200 OK, 3.49kB, 6ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F2-06 Open now + most recently updated stock
+  GET http://127.0.0.1:5000/api/nearby/pharmacies?medicineId=3bec8373567f1e169fbef9cb&lat=23.8069&lng=90.3687&radiusKm=10&sort=updated&openNow=true [200 OK, 1.74kB, 7ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F2-07 No pharmacies nearby
+  GET http://127.0.0.1:5000/api/nearby/pharmacies?medicineId=3bec8373567f1e169fbef9cb&lat=22.326&lng=91.812&radiusKm=5 [200 OK, 1.45kB, 3ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F2-08 Pharmacy summary (map marker / details)
+  GET http://127.0.0.1:5000/api/nearby/pharmacies/0367672641e1463cf4ee98cd?lat=23.8069&lng=90.3687&medicineId=3bec8373567f1e169fbef9cb [200 OK, 1.48kB, 7ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M3-F2-N1 Missing location (400)
+  GET http://127.0.0.1:5000/api/nearby/pharmacies?medicineId=3bec8373567f1e169fbef9cb [400 Bad Request, 1.03kB, 1ms]
+  Pass  Status code is 400
+  Pass  Response has success flag
+
+Folder Member 4 - Md Didarul Islam Nayan / Feature 01 - Pharmacy Verification & Reviews
+Sub-folder M4-F1-01 Register pharmacy with licence details
+  POST http://127.0.0.1:5000/api/pharmacies/register [201 Created, 1.54kB, 18ms]
+  Pass  Status code is 201
+  Pass  Response has success flag
+
+Sub-folder M4-F1-02 Owner checks verification status
+  GET http://127.0.0.1:5000/api/pharmacies/mine/verification [200 OK, 1.51kB, 3ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F1-03 Admin: pharmacies pending verification
+  GET http://127.0.0.1:5000/api/admin/pharmacies?status=Pending [200 OK, 1.86kB, 7ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F1-04 Admin: review submitted licence details
+  GET http://127.0.0.1:5000/api/admin/pharmacies/6aeb92342662f489e845d369 [200 OK, 1.77kB, 7ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F1-05 Admin: verify pharmacy
+  PATCH http://127.0.0.1:5000/api/admin/pharmacies/6aeb92342662f489e845d369/verification [200 OK, 1.72kB, 17ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F1-06 Admin: reject pharmacy with note
+  PATCH http://127.0.0.1:5000/api/admin/pharmacies/24157e5f946b95812b4b9b3d/verification [200 OK, 1.71kB, 18ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F1-N1 Verify without completing the checklist (400)
+  PATCH http://127.0.0.1:5000/api/admin/pharmacies/f6289c77bd8917169b0eece6/verification [400 Bad Request, 1.08kB, 3ms]
+  Pass  Status code is 400
+  Pass  Response has success flag
+
+Sub-folder M4-F1-07 Owner resubmits licence (with licence document image)
+  PUT http://127.0.0.1:5000/api/pharmacies/mine/licence [200 OK, 1.75kB, 17ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F1-08 Public pharmacy profile with rating summary
+  GET http://127.0.0.1:5000/api/pharmacies/0367672641e1463cf4ee98cd [200 OK, 1.5kB, 5ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F1-N2 Unverified pharmacy hidden from public (404)
+  GET http://127.0.0.1:5000/api/pharmacies/f6289c77bd8917169b0eece6 [404 Not Found, 979B, 2ms]
+  Pass  Status code is 404
+  Pass  Response has success flag
+
+Sub-folder M4-F1-09 Pharmacy reviews
+  GET http://127.0.0.1:5000/api/pharmacies/0367672641e1463cf4ee98cd/reviews?page=1&limit=5 [200 OK, 2.04kB, 5ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F1-10 Reservations eligible for review
+  GET http://127.0.0.1:5000/api/pharmacies/0367672641e1463cf4ee98cd/reviewable-reservations [200 OK, 1.13kB, 4ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F1-11 Write a review (1-5 stars)
+  POST http://127.0.0.1:5000/api/pharmacies/0367672641e1463cf4ee98cd/reviews [201 Created, 1.21kB, 17ms]
+  Pass  Status code is 201
+  Pass  Response has success flag
+
+Sub-folder M4-F1-N3 Duplicate review (409)
+  POST http://127.0.0.1:5000/api/pharmacies/0367672641e1463cf4ee98cd/reviews [409 Conflict, 986B, 5ms]
+  Pass  Status code is 409
+  Pass  Response has success flag
+
+Sub-folder M4-F1-N4 Owner cannot use admin verification (403)
+  GET http://127.0.0.1:5000/api/admin/pharmacies [403 Forbidden, 977B, 3ms]
+  Pass  Status code is 403
+  Pass  Response has success flag
+
+Folder Member 4 - Md Didarul Islam Nayan / Feature 02 - Complaints & Disputes
+Sub-folder M4-F2-01 File a complaint about a reservation
+  POST http://127.0.0.1:5000/api/complaints [201 Created, 1.58kB, 37ms]
+  Pass  Status code is 201
+  Pass  Response has success flag
+
+Sub-folder M4-F2-02 File a complaint about a pharmacy
+  POST http://127.0.0.1:5000/api/complaints [201 Created, 1.56kB, 36ms]
+  Pass  Status code is 201
+  Pass  Response has success flag
+
+Sub-folder M4-F2-N1 Invalid complaint (400)
+  POST http://127.0.0.1:5000/api/complaints [400 Bad Request, 1.24kB, 3ms]
+  Pass  Status code is 400
+  Pass  Response has success flag
+
+Sub-folder M4-F2-N2 Complaint on someone else's reservation (403)
+  POST http://127.0.0.1:5000/api/complaints [403 Forbidden, 994B, 3ms]
+  Pass  Status code is 403
+  Pass  Response has success flag
+
+Sub-folder M4-F2-03 My complaints
+  GET http://127.0.0.1:5000/api/complaints/my?tab=all [200 OK, 2.21kB, 7ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F2-04 Owner: complaints about my pharmacy
+  GET http://127.0.0.1:5000/api/owner/complaints [200 OK, 1.89kB, 7ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F2-05 Owner responds to complaint
+  PATCH http://127.0.0.1:5000/api/owner/complaints/6aeb92352662f489e845d3aa/response [200 OK, 1.85kB, 20ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F2-N3 Other pharmacy owner cannot respond (403)
+  PATCH http://127.0.0.1:5000/api/owner/complaints/6aeb92352662f489e845d3aa/response [403 Forbidden, 986B, 5ms]
+  Pass  Status code is 403
+  Pass  Response has success flag
+
+Sub-folder M4-F2-06 Admin: complaints list
+  GET http://127.0.0.1:5000/api/admin/complaints?status=Open [200 OK, 1.95kB, 7ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F2-07 Complaint detail with history
+  GET http://127.0.0.1:5000/api/complaints/6aeb92352662f489e845d3aa [200 OK, 1.98kB, 6ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F2-08 Admin: move to Under Review
+  PATCH http://127.0.0.1:5000/api/admin/complaints/6aeb92352662f489e845d3aa/status [200 OK, 2.12kB, 22ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F2-09 Admin: resolve complaint
+  PATCH http://127.0.0.1:5000/api/admin/complaints/6aeb92352662f489e845d3aa/status [200 OK, 2.39kB, 22ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F2-N4 Invalid status change on a closed complaint (409)
+  PATCH http://127.0.0.1:5000/api/admin/complaints/6aeb92352662f489e845d3aa/status [409 Conflict, 1.02kB, 4ms]
+  Pass  Status code is 409
+  Pass  Response has success flag
+
+Sub-folder M4-F2-N5 Suspension without repeated valid complaints (409)
+  PATCH http://127.0.0.1:5000/api/admin/pharmacies/e9a8e974b7602290887787a9/suspend [409 Conflict, 1.03kB, 5ms]
+  Pass  Status code is 409
+  Pass  Response has success flag
+
+Sub-folder M4-F2-10 Admin: suspend pharmacy after repeated valid complaints
+  PATCH http://127.0.0.1:5000/api/admin/pharmacies/690efc4e8f369b935e83cb6b/suspend [200 OK, 1.27kB, 17ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F2-11 Admin: reinstate pharmacy
+  PATCH http://127.0.0.1:5000/api/admin/pharmacies/690efc4e8f369b935e83cb6b/reinstate [200 OK, 1.07kB, 18ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+-----------------------------------------------------------------
+|                         |         executed |           failed |
+--------------------------+------------------+-------------------
+|              iterations |                1 |                0 |
+--------------------------+------------------+-------------------
+|                requests |               96 |                0 |
+--------------------------+------------------+-------------------
+|            test-scripts |               96 |                0 |
+--------------------------+------------------+-------------------
+|      prerequest-scripts |               96 |                0 |
+--------------------------+------------------+-------------------
+|              assertions |              185 |                0 |
+-----------------------------------------------------------------
+| total run duration: 9.7s                                      |
+-----------------------------------------------------------------
+| total data received: 62.65kB (approx)                         |
+-----------------------------------------------------------------
+| average response time: 13ms [min: 1ms, max: 81ms, s.d.: 14ms] |
+-----------------------------------------------------------------

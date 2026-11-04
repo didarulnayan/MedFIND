@@ -1,0 +1,211 @@
+newman
+
+MedFind BD - Member 4 - Md Didarul Islam Nayan (23301274)
+
+Folder 00 Setup - Login (common)
+Sub-folder Login -> newOwnerToken (new.owner@medfind.test)
+  POST http://127.0.0.1:1274/api/auth/login [200 OK, 1.49kB, 62ms]
+  Pass  Logged in
+
+Sub-folder Login -> rejectedOwnerToken (sabbir.owner@medfind.test)
+  POST http://127.0.0.1:1274/api/auth/login [200 OK, 1.49kB, 49ms]
+  Pass  Logged in
+
+Sub-folder Login -> adminToken (admin@medfind.test)
+  POST http://127.0.0.1:1274/api/auth/login [200 OK, 1.48kB, 49ms]
+  Pass  Logged in
+
+Sub-folder Login -> ownerToken (rahim.owner@medfind.test)
+  POST http://127.0.0.1:1274/api/auth/login [200 OK, 1.49kB, 49ms]
+  Pass  Logged in
+
+Sub-folder Login -> owner2Token (tanvir.owner@medfind.test)
+  POST http://127.0.0.1:1274/api/auth/login [200 OK, 1.49kB, 49ms]
+  Pass  Logged in
+
+Sub-folder Login -> patientToken (ayesha@medfind.test)
+  POST http://127.0.0.1:1274/api/auth/login [200 OK, 1.49kB, 48ms]
+  Pass  Logged in
+
+Sub-folder Login -> patient2Token (imran@medfind.test)
+  POST http://127.0.0.1:1274/api/auth/login [200 OK, 1.49kB, 49ms]
+  Pass  Logged in
+
+Folder Feature 01 - Pharmacy Verification & Reviews
+Sub-folder M4-F1-01 Register pharmacy with licence details
+  POST http://127.0.0.1:1274/api/pharmacies/register [201 Created, 1.54kB, 19ms]
+  Pass  Status code is 201
+  Pass  Response has success flag
+
+Sub-folder M4-F1-02 Owner checks verification status
+  GET http://127.0.0.1:1274/api/pharmacies/mine/verification [200 OK, 1.51kB, 4ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F1-03 Admin: pharmacies pending verification
+  GET http://127.0.0.1:1274/api/admin/pharmacies?status=Pending [200 OK, 1.86kB, 7ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F1-04 Admin: review submitted licence details
+  GET http://127.0.0.1:1274/api/admin/pharmacies/6aeb92235d3cdae6a0e944d8 [200 OK, 1.77kB, 5ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F1-05 Admin: verify pharmacy
+  PATCH http://127.0.0.1:1274/api/admin/pharmacies/6aeb92235d3cdae6a0e944d8/verification [200 OK, 1.72kB, 19ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F1-06 Admin: reject pharmacy with note
+  PATCH http://127.0.0.1:1274/api/admin/pharmacies/24157e5f946b95812b4b9b3d/verification [200 OK, 1.71kB, 18ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F1-N1 Verify without completing the checklist (400)
+  PATCH http://127.0.0.1:1274/api/admin/pharmacies/f6289c77bd8917169b0eece6/verification [400 Bad Request, 1.08kB, 3ms]
+  Pass  Status code is 400
+  Pass  Response has success flag
+
+Sub-folder M4-F1-07 Owner resubmits licence (with licence document image)
+  PUT http://127.0.0.1:1274/api/pharmacies/mine/licence (node:24948) [DEP0044] DeprecationWarning: The `util.isArray` API is deprecated. Please use `Array.isArray()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[200 OK, 1.75kB, 16ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F1-08 Public pharmacy profile with rating summary
+  GET http://127.0.0.1:1274/api/pharmacies/0367672641e1463cf4ee98cd [200 OK, 1.5kB, 4ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F1-N2 Unverified pharmacy hidden from public (404)
+  GET http://127.0.0.1:1274/api/pharmacies/f6289c77bd8917169b0eece6 [404 Not Found, 979B, 2ms]
+  Pass  Status code is 404
+  Pass  Response has success flag
+
+Sub-folder M4-F1-09 Pharmacy reviews
+  GET http://127.0.0.1:1274/api/pharmacies/0367672641e1463cf4ee98cd/reviews?page=1&limit=5 [200 OK, 2.04kB, 5ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F1-10 Reservations eligible for review
+  GET http://127.0.0.1:1274/api/pharmacies/0367672641e1463cf4ee98cd/reviewable-reservations [200 OK, 1.13kB, 3ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F1-11 Write a review (1-5 stars)
+  POST http://127.0.0.1:1274/api/pharmacies/0367672641e1463cf4ee98cd/reviews [201 Created, 1.21kB, 17ms]
+  Pass  Status code is 201
+  Pass  Response has success flag
+
+Sub-folder M4-F1-N3 Duplicate review (409)
+  POST http://127.0.0.1:1274/api/pharmacies/0367672641e1463cf4ee98cd/reviews [409 Conflict, 986B, 4ms]
+  Pass  Status code is 409
+  Pass  Response has success flag
+
+Sub-folder M4-F1-N4 Owner cannot use admin verification (403)
+  GET http://127.0.0.1:1274/api/admin/pharmacies [403 Forbidden, 977B, 2ms]
+  Pass  Status code is 403
+  Pass  Response has success flag
+
+Folder Feature 02 - Complaints & Disputes
+Sub-folder M4-F2-01 File a complaint about a reservation
+  POST http://127.0.0.1:1274/api/complaints [201 Created, 1.58kB, 35ms]
+  Pass  Status code is 201
+  Pass  Response has success flag
+
+Sub-folder M4-F2-02 File a complaint about a pharmacy
+  POST http://127.0.0.1:1274/api/complaints [201 Created, 1.56kB, 36ms]
+  Pass  Status code is 201
+  Pass  Response has success flag
+
+Sub-folder M4-F2-N1 Invalid complaint (400)
+  POST http://127.0.0.1:1274/api/complaints [400 Bad Request, 1.24kB, 3ms]
+  Pass  Status code is 400
+  Pass  Response has success flag
+
+Sub-folder M4-F2-N2 Complaint on someone else's reservation (403)
+  POST http://127.0.0.1:1274/api/complaints [403 Forbidden, 994B, 3ms]
+  Pass  Status code is 403
+  Pass  Response has success flag
+
+Sub-folder M4-F2-03 My complaints
+  GET http://127.0.0.1:1274/api/complaints/my?tab=all [200 OK, 2.21kB, 5ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F2-04 Owner: complaints about my pharmacy
+  GET http://127.0.0.1:1274/api/owner/complaints [200 OK, 1.89kB, 6ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F2-05 Owner responds to complaint
+  PATCH http://127.0.0.1:1274/api/owner/complaints/6aeb92245d3cdae6a0e94519/response [200 OK, 1.85kB, 20ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F2-N3 Other pharmacy owner cannot respond (403)
+  PATCH http://127.0.0.1:1274/api/owner/complaints/6aeb92245d3cdae6a0e94519/response [403 Forbidden, 986B, 3ms]
+  Pass  Status code is 403
+  Pass  Response has success flag
+
+Sub-folder M4-F2-06 Admin: complaints list
+  GET http://127.0.0.1:1274/api/admin/complaints?status=Open [200 OK, 1.95kB, 6ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F2-07 Complaint detail with history
+  GET http://127.0.0.1:1274/api/complaints/6aeb92245d3cdae6a0e94519 [200 OK, 1.98kB, 6ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F2-08 Admin: move to Under Review
+  PATCH http://127.0.0.1:1274/api/admin/complaints/6aeb92245d3cdae6a0e94519/status [200 OK, 2.12kB, 22ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F2-09 Admin: resolve complaint
+  PATCH http://127.0.0.1:1274/api/admin/complaints/6aeb92245d3cdae6a0e94519/status [200 OK, 2.39kB, 22ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F2-N4 Invalid status change on a closed complaint (409)
+  PATCH http://127.0.0.1:1274/api/admin/complaints/6aeb92245d3cdae6a0e94519/status [409 Conflict, 1.02kB, 4ms]
+  Pass  Status code is 409
+  Pass  Response has success flag
+
+Sub-folder M4-F2-N5 Suspension without repeated valid complaints (409)
+  PATCH http://127.0.0.1:1274/api/admin/pharmacies/e9a8e974b7602290887787a9/suspend [409 Conflict, 1.03kB, 5ms]
+  Pass  Status code is 409
+  Pass  Response has success flag
+
+Sub-folder M4-F2-10 Admin: suspend pharmacy after repeated valid complaints
+  PATCH http://127.0.0.1:1274/api/admin/pharmacies/690efc4e8f369b935e83cb6b/suspend [200 OK, 1.27kB, 17ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M4-F2-11 Admin: reinstate pharmacy
+  PATCH http://127.0.0.1:1274/api/admin/pharmacies/690efc4e8f369b935e83cb6b/reinstate [200 OK, 1.07kB, 19ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+-----------------------------------------------------------------
+|                         |         executed |           failed |
+--------------------------+------------------+-------------------
+|              iterations |                1 |                0 |
+--------------------------+------------------+-------------------
+|                requests |               38 |                0 |
+--------------------------+------------------+-------------------
+|            test-scripts |               38 |                0 |
+--------------------------+------------------+-------------------
+|      prerequest-scripts |               38 |                0 |
+--------------------------+------------------+-------------------
+|              assertions |               69 |                0 |
+-----------------------------------------------------------------
+| total run duration: 4s                                        |
+-----------------------------------------------------------------
+| total data received: 21.94kB (approx)                         |
+-----------------------------------------------------------------
+| average response time: 18ms [min: 2ms, max: 62ms, s.d.: 17ms] |
+-----------------------------------------------------------------

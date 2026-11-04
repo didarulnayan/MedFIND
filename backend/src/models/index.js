@@ -1,0 +1,16 @@
+module.exports = {
+  User: require('./User'),
+  Pharmacy: require('./Pharmacy'),
+  MasterMedicine: require('./MasterMedicine'),
+  CatalogItem: require('./CatalogItem'),
+  InventoryBatch: require('./InventoryBatch'),
+  PriceHistory: require('./PriceHistory'),
+  Reservation: require('./Reservation'),
+  Review: require('./Review'),
+  Complaint: require('./Complaint'),
+  Notification: require('./Notification'),
+  Alert: require('./Alert'),
+  SearchLog: require('./SearchLog'),
+  Area: require('./Area'),
+  Counter: require('./Counter'),
+};

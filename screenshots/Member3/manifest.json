@@ -1,0 +1,138 @@
+{
+  "M3-F1-01": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member3/M3-F1-01.png",
+    "url": "/api/search/suggestions",
+    "at": "2026-11-04T20:03:15.505Z"
+  },
+  "M3-F1-02": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member3/M3-F1-02.png",
+    "url": "/api/search/medicines",
+    "at": "2026-11-04T20:03:24.638Z"
+  },
+  "M3-F1-03": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member3/M3-F1-03.png",
+    "url": "/api/search/medicines",
+    "at": "2026-11-04T20:03:33.756Z"
+  },
+  "M3-F1-04": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member3/M3-F1-04.png",
+    "url": "/api/search/filters",
+    "at": "2026-11-04T20:03:42.917Z"
+  },
+  "M3-F1-05": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member3/M3-F1-05.png",
+    "url": "/api/search/popular",
+    "at": "2026-11-04T20:03:52.083Z"
+  },
+  "M3-F1-06": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member3/M3-F1-06.png",
+    "url": "/api/search/medicines",
+    "at": "2026-11-04T20:04:01.244Z"
+  },
+  "M3-F1-N1": {
+    "expected": 400,
+    "serverLogged": 400,
+    "ok": true,
+    "screenshot": "screenshots/Member3/M3-F1-N1.png",
+    "url": "/api/search/medicines",
+    "at": "2026-11-04T20:04:10.366Z"
+  },
+  "M3-F1-N2": {
+    "expected": 400,
+    "serverLogged": 400,
+    "ok": true,
+    "screenshot": "screenshots/Member3/M3-F1-N2.png",
+    "url": "/api/search/suggestions",
+    "at": "2026-11-04T20:04:19.526Z"
+  },
+  "M3-F2-01": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member3/M3-F2-01.png",
+    "url": "/api/locations/areas",
+    "at": "2026-11-04T20:04:28.687Z"
+  },
+  "M3-F2-02": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member3/M3-F2-02.png",
+    "url": "/api/locations/resolve",
+    "at": "2026-11-04T20:04:37.749Z"
+  },
+  "M3-F2-03": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member3/M3-F2-03.png",
+    "url": "/api/nearby/pharmacies",
+    "at": "2026-11-04T20:04:46.919Z"
+  },
+  "M3-F2-04": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member3/M3-F2-04.png",
+    "url": "/api/nearby/pharmacies",
+    "at": "2026-11-04T20:04:56.056Z"
+  },
+  "M3-F2-05": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member3/M3-F2-05.png",
+    "url": "/api/nearby/pharmacies",
+    "at": "2026-11-04T20:05:05.216Z"
+  },
+  "M3-F2-06": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member3/M3-F2-06.png",
+    "url": "/api/nearby/pharmacies",
+    "at": "2026-11-04T20:05:14.352Z"
+  },
+  "M3-F2-07": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member3/M3-F2-07.png",
+    "url": "/api/nearby/pharmacies",
+    "at": "2026-11-04T20:05:23.500Z"
+  },
+  "M3-F2-08": {
+    "expected": 200,
+    "serverLogged": 200,
+    "ok": true,
+    "screenshot": "screenshots/Member3/M3-F2-08.png",
+    "url": "/api/nearby/pharmacies/0367672641e1463cf4ee98cd",
+    "at": "2026-11-04T20:05:32.648Z"
+  },
+  "M3-F2-N1": {
+    "expected": 400,
+    "serverLogged": 400,
+    "ok": true,
+    "screenshot": "screenshots/Member3/M3-F2-N1.png",
+    "url": "/api/nearby/pharmacies",
+    "at": "2026-11-04T20:05:41.770Z"
+  }
+}

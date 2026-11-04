@@ -1,0 +1,149 @@
+newman
+
+MedFind BD - Member 2 - Abdullah Al Zahur Rafi (22299050)
+
+Folder 00 Setup - Login (common)
+Sub-folder Login -> patientToken (ayesha@medfind.test)
+  POST http://127.0.0.1:9050/api/auth/login [200 OK, 1.49kB, 135ms]
+  Pass  Logged in
+
+Sub-folder Login -> patient2Token (imran@medfind.test)
+  POST http://127.0.0.1:9050/api/auth/login [200 OK, 1.49kB, 119ms]
+  Pass  Logged in
+
+Sub-folder Login -> ownerToken (rahim.owner@medfind.test)
+  POST http://127.0.0.1:9050/api/auth/login [200 OK, 1.49kB, 120ms]
+  Pass  Logged in
+
+Sub-folder Login -> adminToken (admin@medfind.test)
+  POST http://127.0.0.1:9050/api/auth/login [200 OK, 1.48kB, 121ms]
+  Pass  Logged in
+
+Folder Feature 01 - Medicine Details & Reservation Request
+Sub-folder M2-F1-01 Medicine details with pharmacy availability
+  GET http://127.0.0.1:9050/api/medicines/3bec8373567f1e169fbef9cb?sort=price [200 OK, 3.53kB, 219ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M2-F1-02 Pharmacy availability & reservation summary
+  GET http://127.0.0.1:9050/api/medicines/3bec8373567f1e169fbef9cb/pharmacies/0367672641e1463cf4ee98cd/availability?quantity=10 [200 OK, 1.8kB, 294ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M2-F1-N4 Unverified pharmacy (404)
+  GET http://127.0.0.1:9050/api/medicines/3bec8373567f1e169fbef9cb/pharmacies/24157e5f946b95812b4b9b3d/availability [404 Not Found, 979B, 146ms]
+  Pass  Status code is 404
+  Pass  Response has success flag
+
+Sub-folder M2-F1-03 Send reservation request
+  POST http://127.0.0.1:9050/api/reservations (node:28608) [DEP0044] DeprecationWarning: The `util.isArray` API is deprecated. Please use `Array.isArray()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[201 Created, 1.37kB, 676ms]
+  Pass  Status code is 201
+  Pass  Response has success flag
+
+Sub-folder M2-F1-04 Upload prescription image
+  PUT http://127.0.0.1:9050/api/reservations/6aeb9b13e882ad030db0f5b6/prescription [200 OK, 1.09kB, 227ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M2-F1-N1 Prescription-only medicine without prescription (400)
+  POST http://127.0.0.1:9050/api/reservations [400 Bad Request, 1.03kB, 294ms]
+  Pass  Status code is 400
+  Pass  Response has success flag
+
+Sub-folder M2-F1-N2 Quantity exceeds available stock (409)
+  POST http://127.0.0.1:9050/api/reservations [409 Conflict, 1kB, 446ms]
+  Pass  Status code is 409
+  Pass  Response has success flag
+
+Sub-folder M2-F1-N3 Pickup time outside opening hours (400)
+  POST http://127.0.0.1:9050/api/reservations [400 Bad Request, 1.02kB, 295ms]
+  Pass  Status code is 400
+  Pass  Response has success flag
+
+Folder Feature 02 - Reservation Status Tracking
+Sub-folder M2-F2-01 My reservations
+  GET http://127.0.0.1:9050/api/reservations/my?tab=all [200 OK, 2.66kB, 149ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M2-F2-02 Owner reservation inbox
+  GET http://127.0.0.1:9050/api/owner/reservations?status=Pending [200 OK, 2.22kB, 292ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M2-F2-03 Confirm availability (Pending -> Confirmed)
+  PATCH http://127.0.0.1:9050/api/owner/reservations/6aeb9b13e882ad030db0f5b6/status [200 OK, 1.24kB, 578ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M2-F2-04 Mark ready for pickup (Confirmed -> Ready for pickup)
+  PATCH http://127.0.0.1:9050/api/owner/reservations/6aeb9b13e882ad030db0f5b6/status [200 OK, 1.25kB, 432ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M2-F2-05 Mark collected (stock reduces automatically)
+  PATCH http://127.0.0.1:9050/api/owner/reservations/6aeb9b13e882ad030db0f5b6/status [200 OK, 1.33kB, 725ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M2-F2-N1 Invalid status transition (409)
+  PATCH http://127.0.0.1:9050/api/owner/reservations/6aeb9b13e882ad030db0f5b6/status [409 Conflict, 1.01kB, 215ms]
+  Pass  Status code is 409
+  Pass  Response has success flag
+
+Sub-folder M2-F2-N2 Cancel after Ready for pickup / collected (409)
+  PATCH http://127.0.0.1:9050/api/reservations/6aeb9b13e882ad030db0f5b6/cancel [409 Conflict, 1.05kB, 144ms]
+  Pass  Status code is 409
+  Pass  Response has success flag
+
+Sub-folder M2-F2-06 Reservation status timeline
+  GET http://127.0.0.1:9050/api/reservations/6aeb9b13e882ad030db0f5b6 [200 OK, 2.72kB, 216ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M2-F2-N3 Another patient cannot view the reservation (403)
+  GET http://127.0.0.1:9050/api/reservations/6aeb9b13e882ad030db0f5b6 [403 Forbidden, 977B, 221ms]
+  Pass  Status code is 403
+  Pass  Response has success flag
+
+Sub-folder M2-F2-07 Reject reservation with reason
+  PATCH http://127.0.0.1:9050/api/owner/reservations/6aeb9b0af705e99cfc27f3cd/reject [200 OK, 1.3kB, 298ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M2-F2-08 Patient cancels reservation
+  PATCH http://127.0.0.1:9050/api/reservations/6aeb9b0af705e99cfc27f3ca/cancel [200 OK, 1.19kB, 298ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M2-F2-09 Expire overdue reservations (scheduled job trigger)
+  POST http://127.0.0.1:9050/api/admin/reservations/expire-overdue [200 OK, 1.01kB, 227ms]
+  Pass  Status code is 200
+  Pass  Response has success flag
+
+Sub-folder M2-F2-N4 Non-admin cannot run the expiry job (403)
+  POST http://127.0.0.1:9050/api/admin/reservations/expire-overdue [403 Forbidden, 977B, 72ms]
+  Pass  Status code is 403
+  Pass  Response has success flag
+
+---------------------------------------------------------------------
+|                         |           executed |             failed |
+--------------------------+--------------------+---------------------
+|              iterations |                  1 |                  0 |
+--------------------------+--------------------+---------------------
+|                requests |                 25 |                  0 |
+--------------------------+--------------------+---------------------
+|            test-scripts |                 25 |                  0 |
+--------------------------+--------------------+---------------------
+|      prerequest-scripts |                 25 |                  0 |
+--------------------------+--------------------+---------------------
+|              assertions |                 46 |                  0 |
+---------------------------------------------------------------------
+| total run duration: 9s                                            |
+---------------------------------------------------------------------
+| total data received: 13.49kB (approx)                             |
+---------------------------------------------------------------------
+| average response time: 278ms [min: 72ms, max: 725ms, s.d.: 168ms] |
+---------------------------------------------------------------------
