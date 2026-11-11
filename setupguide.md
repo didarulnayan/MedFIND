@@ -22,6 +22,8 @@ Repository: https://github.com/didarulnayan/MedFIND
 - Postman desktop app - https://www.postman.com/downloads, with a free account (needed to import collections)
 - A GitHub account added as a collaborator on the repository (ask Didarul)
 - The database line (MONGODB_URI) - Didarul sends it to you privately. It contains the database password.
+- Optional: the group's shared MongoDB Atlas login (Google account **medfindbd@gmail.com**, see section 10) if you
+  want to look at the data in the Atlas website. You do not need it to run the project.
 
 
 ## 2. Get the code
@@ -71,13 +73,12 @@ so every member creates their own copy.
 MongoDB Atlas only accepts connections from IP addresses on its allow list.
 
 1. Find your public IP address: open https://whatismyipaddress.com and copy the IPv4 address.
-2. Send it to Didarul.
-3. Didarul adds it in Atlas: Network Access > Add IP Address > paste it > Confirm
-   (or chooses "Allow Access from Anywhere" for the whole group).
-4. Wait about a minute until the status shows Active.
+The group's cluster already allows every address (`0.0.0.0/0`), so normally there is nothing to do here.
+If connections time out, check in Atlas (signed in as medfindbd@gmail.com) under **Network Access** that the
+`0.0.0.0/0` entry is still there and **Active**. If it was removed: **Add IP Address**, type `0.0.0.0/0`, leave
+"temporary" off, **Confirm**, and wait about a minute.
 
-> TIP: your IP changes when you switch networks (home, university, mobile data).
-> If the database stops connecting on a new network, repeat these steps.
+> TIP: if your network blocks port 27017 (some university or office Wi-Fi does), try mobile data.
 
 
 ## 5. Run your server
@@ -221,19 +222,26 @@ git push
 | Upload request returns `400` (file missing)       | Set Postman's working directory to the `postman` folder, or re-select the image in the Body tab. |
 
 
-## 10. For Didarul: giving teammates access to Atlas
+## 10. The shared Atlas account
 
-Each teammate gets their own Atlas login (no shared password):
+The database lives in a MongoDB Atlas account owned by the group's shared Google account **medfindbd@gmail.com**
+(sign in at https://cloud.mongodb.com with **Sign in with Google**). Didarul shares the Gmail login privately.
 
-1. Atlas > your project > **Project Identity & Access** (or **Access Manager**) > **Invite to Project**.
-2. Enter the teammate's email and choose the role **Project Data Access Read/Write**
-   (or **Project Owner** if they should manage the cluster too). Send the invite.
-3. The teammate accepts the email invitation and signs in to Atlas with their own account.
-4. **Network Access > Add IP Address**: add each teammate's IP, or **Allow Access from Anywhere** for the course.
-5. The app itself still connects with the database user in `MONGODB_URI` - send that line privately.
-   For a separate app login per teammate: **Database Access > Add New Database User**, then send each person their own line.
+| Item | Value |
+|---|---|
+| Atlas login | medfindbd@gmail.com (Google sign-in) |
+| Cluster | Cluster0 (free M0) |
+| Database | `medfind_bd` (tests use `medfind_bd_test`) |
+| App database user | `MEDIFND_APP` (spelled M-E-D-I-F-N-D), role "Read and write to any database" |
+| Network Access | `0.0.0.0/0` (any IP) |
 
-To remove someone later: Access Manager > remove the user, and delete their database user.
+- The **app** only needs the `MONGODB_URI` line in `backend/.env`; it does not use the Gmail login at all.
+  Use the Gmail login only to browse data (Browse Collections) or change settings.
+- Anyone signed in to the Gmail can delete the cluster or change passwords - agree as a group not to change
+  settings without telling everyone, and never "Terminate" Cluster0.
+- If the `MEDIFND_APP` password is ever changed (Database Access > Edit > Edit Password), everyone must update the
+  password inside their `MONGODB_URI` line.
+- Atlas may email a verification code to medfindbd@gmail.com on a new device - whoever has the Gmail open passes it on.
 
 
 ## 11. Demo-day checklist
