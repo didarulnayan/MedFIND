@@ -2,7 +2,7 @@
 const { MasterMedicine, CatalogItem, Pharmacy, Reservation, Counter } = require('../models');
 const ApiError = require('../utils/ApiError');
 const env = require('../config/env');
-const { localDateTime, isOpenAt, addDays } = require('../utils/helpers');
+const { localDateTime, isOpenAt, addDays, medicineName } = require('../utils/helpers');
 const inventory = require('./inventory.service');
 const storage = require('./storage.service');
 const { notify } = require('./notification.service');
@@ -167,7 +167,7 @@ async function createReservation(patient, { medicineId, pharmacyId, quantity, pi
   notify(pharmacy.owner, {
     type: 'new_reservation',
     title: `New reservation ${reservation.code}`,
-    message: `${patient.name} requested ${medicine.brandName} ${medicine.strength} x ${quantity} for pickup at ${pickupAt.toISOString()}.`,
+    message: `${patient.name} requested ${medicineName(medicine)} x ${quantity} for pickup at ${pickupAt.toISOString()}.`,
     data: { reservationId: reservation._id },
   });
 
@@ -177,7 +177,7 @@ async function createReservation(patient, { medicineId, pharmacyId, quantity, pi
       code: reservation.code,
       status: reservation.status,
       statusLabel: reservation.statusLabel,
-      medicine: `${medicine.brandName} ${medicine.strength} x ${quantity}`,
+      medicine: `${medicineName(medicine)} x ${quantity}`,
       pharmacy: `${pharmacy.name}, ${pharmacy.address.area}`,
       quantity,
       unitPrice: reservation.unitPrice,

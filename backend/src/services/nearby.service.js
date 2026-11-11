@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const { Pharmacy, Area, MasterMedicine, CatalogItem } = require('../models');
 const ApiError = require('../utils/ApiError');
-const { isOpenAt, pageMeta } = require('../utils/helpers');
+const { isOpenAt, pageMeta, medicineName } = require('../utils/helpers');
 
 const RADIUS_OPTIONS = [1, 3, 5, 10, 20];
 
@@ -131,7 +131,7 @@ async function nearbyPharmacies({ medicineId, lat, lng, areaId, radiusKm = 5, so
   cards.sort(sorters[sort]);
 
   const total = cards.length;
-  const medicineLabel = medicine ? `${medicine.brandName} ${medicine.strength}` : null;
+  const medicineLabel = medicine ? `${medicineName(medicine)}` : null;
   const result = {
     location: { label: origin.label, lat: origin.coordinates[1], lng: origin.coordinates[0] },
     medicine: medicine ? { id: medicine._id, label: medicineLabel, genericName: medicine.genericName } : null,
@@ -176,7 +176,7 @@ async function pharmacySummary(pharmacyId, { lat, lng, medicineId }) {
   if (medicineId) {
     const item = await CatalogItem.findOne({ pharmacy: p._id, medicine: medicineId, isActive: true }).populate('medicine');
     card.listing = item
-      ? { medicine: `${item.medicine.brandName} ${item.medicine.strength}`, price: item.price, stock: item.stockQuantity, stockStatus: item.stockStatus, lastUpdatedAt: item.lastUpdatedAt }
+      ? { medicine: `${medicineName(item.medicine)}`, price: item.price, stock: item.stockQuantity, stockStatus: item.stockStatus, lastUpdatedAt: item.lastUpdatedAt }
       : null;
   }
   return card;

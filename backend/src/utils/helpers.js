@@ -81,7 +81,20 @@ function escapeRegex(text = '') {
   return String(text).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+/**
+ * Display name of a medicine: "Napa 500 mg", but "Seclo 20" (not "Seclo 20 20 mg") when the
+ * brand name already contains the strength number.
+ */
+function medicineName(m) {
+  if (!m) return '';
+  const { brandName = '', strength = '' } = m;
+  const num = (strength.match(/^[\d.]+/) || [])[0];
+  if (!strength || brandName.includes(strength) || (num && new RegExp(`(^|\\s)${num.replace('.', '\\.')}(\\s|$)`).test(brandName))) return brandName;
+  return `${brandName} ${strength}`;
+}
+
 module.exports = {
+  medicineName,
   DAY_MS, ok, created, localDateTime, localParts, startOfLocalDay, addDays, daysUntil, timeLeftLabel,
   isOpenAt, getPagination, pageMeta, escapeRegex,
 };

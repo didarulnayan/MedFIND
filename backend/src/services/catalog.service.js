@@ -1,7 +1,7 @@
 /** Member 1 - Feature 1: Medicine Catalog Management */
 const { CatalogItem, MasterMedicine, PriceHistory } = require('../models');
 const ApiError = require('../utils/ApiError');
-const { escapeRegex, pageMeta } = require('../utils/helpers');
+const { escapeRegex, pageMeta, medicineName } = require('../utils/helpers');
 const { withTransaction } = require('./transaction');
 const inventory = require('./inventory.service');
 
@@ -98,7 +98,7 @@ async function addToCatalog(pharmacy, user, { masterMedicineId, price, stockQuan
 
   const existing = await CatalogItem.findOne({ pharmacy: pharmacy._id, medicine: medicine._id });
   if (existing && existing.isActive) {
-    throw ApiError.conflict(`${medicine.brandName} ${medicine.strength} is already in your catalog`);
+    throw ApiError.conflict(`${medicineName(medicine)} is already in your catalog`);
   }
 
   const itemId = await withTransaction(async (session) => {
@@ -148,7 +148,7 @@ async function removeCatalogItem(pharmacy, itemId) {
   item.isActive = false;
   item.lastUpdatedAt = new Date();
   await item.save();
-  return { id: item._id, medicine: `${item.medicine.brandName} ${item.medicine.strength}`, removed: true };
+  return { id: item._id, medicine: `${medicineName(item.medicine)}`, removed: true };
 }
 
 async function priceHistory(pharmacy, itemId) {

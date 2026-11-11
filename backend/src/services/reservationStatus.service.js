@@ -1,7 +1,7 @@
 /** Member 2 - Feature 2: Reservation Status Tracking */
 const { Reservation, CatalogItem, Pharmacy } = require('../models');
 const ApiError = require('../utils/ApiError');
-const { pageMeta, startOfLocalDay } = require('../utils/helpers');
+const { pageMeta, startOfLocalDay, medicineName } = require('../utils/helpers');
 const { withTransaction } = require('./transaction');
 const inventory = require('./inventory.service');
 const { notify } = require('./notification.service');
@@ -22,8 +22,9 @@ function summary(r) {
   return {
     id: r._id,
     code: r.code,
-    medicine: `${r.medicineSnapshot.brandName} ${r.medicineSnapshot.strength} x ${r.quantity}`,
+    medicine: `${medicineName(r.medicineSnapshot)} x ${r.quantity}`,
     pharmacy: r.pharmacySnapshot.name,
+    pharmacyId: r.pharmacy && r.pharmacy._id ? r.pharmacy._id : r.pharmacy,
     quantity: r.quantity,
     totalPrice: r.totalPrice,
     pickupAt: r.pickupAt,

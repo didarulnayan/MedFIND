@@ -107,6 +107,27 @@ npm run seed
 > for everyone. Tell the group before you run it, and never run it while someone else is testing or demonstrating.
 
 
+### Run the website (frontend)
+
+The website uses the all-features server (port 5000), so start that instead of your member server:
+
+```
+# terminal 1
+cd backend
+npm start
+
+# terminal 2
+cd frontend
+npm install
+cp .env.example .env        (Command Prompt: copy .env.example .env)
+npm run dev
+```
+
+Open http://localhost:5173 and log in with a demo account (one-click buttons on the login page).
+The frontend `.env` has no passwords - it only says where the backend is. Your screens are listed per member in
+`frontend/README.md` and live in `frontend/src/pages/memberN/`.
+
+
 ## 6. Test your APIs in Postman
 
 1. Start your server (section 5).
@@ -200,7 +221,22 @@ git push
 | Upload request returns `400` (file missing)       | Set Postman's working directory to the `postman` folder, or re-select the image in the Body tab. |
 
 
-## 10. Demo-day checklist
+## 10. For Didarul: giving teammates access to Atlas
+
+Each teammate gets their own Atlas login (no shared password):
+
+1. Atlas > your project > **Project Identity & Access** (or **Access Manager**) > **Invite to Project**.
+2. Enter the teammate's email and choose the role **Project Data Access Read/Write**
+   (or **Project Owner** if they should manage the cluster too). Send the invite.
+3. The teammate accepts the email invitation and signs in to Atlas with their own account.
+4. **Network Access > Add IP Address**: add each teammate's IP, or **Allow Access from Anywhere** for the course.
+5. The app itself still connects with the database user in `MONGODB_URI` - send that line privately.
+   For a separate app login per teammate: **Database Access > Add New Database User**, then send each person their own line.
+
+To remove someone later: Access Manager > remove the user, and delete their database user.
+
+
+## 11. Demo-day checklist
 
 - [ ] Laptop charged, Node.js and Postman installed, repository cloned and `npm install` done
 - [ ] `.env` created and `/api/health` shows `"database": "connected"` on the university network (your IP is allowed)

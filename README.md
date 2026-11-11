@@ -2,7 +2,7 @@
 
 A web-based medicine discovery and pharmacy management platform that connects patients with verified pharmacies. Features include medicine search, real-time stock and price comparison, medicine reservations, pharmacy verification, inventory management, online payments, nearby pharmacy discovery, and AI-powered medicine information.
 
-This repository currently contains the **backend REST API** for the 8 Assignment 03 features: patients search medicines,
+This repository contains the **backend REST API** and the **React frontend** (built from the group's Figma designs) for the 8 Assignment 03 features: patients search medicines,
 find verified pharmacies nearby that stock them, reserve for pickup, review pharmacies and file complaints; pharmacy
 owners manage their catalog, batches and expiry; admins verify pharmacies and handle disputes.
 
@@ -40,6 +40,7 @@ MedFind-BD/
 │   ├── scripts/           seed.js, init-replset.js, postman/ (collection + screenshot tooling), docs/
 │   ├── tests/             api.test.js (51 end-to-end tests)
 │   └── .env.example
+├── frontend/              React + Vite + Tailwind app: pages/member1..4, components, lib (see frontend/README.md)
 ├── postman/               Member1..4 collections, Master_Collection, environments, assets, newman-reports
 ├── screenshots/           Member1..4 Postman screenshots + manifest.json (status logged by the server)
 ├── submissions/           Member1..4_Assignment03.docx
@@ -68,6 +69,15 @@ npm run start:member4   # http://127.0.0.1:1274
 
 All four can run at the same time against the same database. `npm start` runs every feature on port 5000.
 Check any server with `GET /api/health`.
+
+Run the website (frontend) against the all-features server:
+
+```bash
+cd backend && npm start                 # terminal 1: API on port 5000
+cd frontend && npm install && npm run dev   # terminal 2: http://localhost:5173
+```
+
+Copy `frontend/.env.example` to `frontend/.env` first. Details: [frontend/README.md](frontend/README.md).
 
 Run the automated tests (uses a separate `<db>_test` database):
 

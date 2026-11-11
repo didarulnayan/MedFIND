@@ -29,6 +29,7 @@ function summary(c) {
     code: c.code,
     issueType: c.issueType,
     pharmacy: c.pharmacy && c.pharmacy.name ? c.pharmacy.name : c.pharmacy,
+    pharmacyId: c.pharmacy && c.pharmacy._id ? c.pharmacy._id : c.pharmacy,
     reservation: c.reservation && c.reservation.code ? c.reservation.code : c.reservation || null,
     status: c.status,
     statusLabel: LABELS[c.status],
